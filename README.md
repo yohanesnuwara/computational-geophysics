@@ -19,7 +19,7 @@ Data: [Roosevelt Hotsprings Geothermal USA from open-source USGS data](https://g
 [See notebook]()
 
 <div>
-<img src="https://user-images.githubusercontent.com/51282928/77532625-cc199f80-6ec7-11ea-9d90-d9dedeb2614a.PNG" width="350"/><img src="https://user-images.githubusercontent.com/51282928/77532829-40544300-6ec8-11ea-9426-261bae10a1e2.PNG" width="500"/>
+<img src="https://user-images.githubusercontent.com/51282928/77532829-40544300-6ec8-11ea-9426-261bae10a1e2.PNG" width="700"/>
 </div>
 
 ### Regional and residual anomaly separation using Second Vertical Derivative
