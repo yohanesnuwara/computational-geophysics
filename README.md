@@ -2,9 +2,11 @@
 
 All geophysics method: gravity, magnetic, seismic, electrical, electromagnetic
 
-## Gravity
+## Gravity 
 
-Data: [Roosevelt Hotsprings Geothermal USA from open-source USGS data]()
+### [See here](https://github.com/yohanesnuwara/computational-geophysics/tree/master/gravity)
+
+Data: [Roosevelt Hotsprings Geothermal USA from open-source USGS data](https://github.com/yohanesnuwara/computational-geophysics/blob/master/gravity/data/Gravity_UTM.txt)
 
 <div>
 <img src="https://user-images.githubusercontent.com/51282928/77532692-f5d2c680-6ec7-11ea-9db7-8c0d61e295b6.PNG" width="600"/>
