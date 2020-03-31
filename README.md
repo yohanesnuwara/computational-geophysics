@@ -16,7 +16,7 @@ Data: [Roosevelt Hotsprings Geothermal USA from open-source USGS data](https://g
 
 ### Regional and residual anomaly separation using Fourier Transform and Moving Average
 
-#### FFT 1D slice into 2D map [See notebook]()
+#### FFT 1D slice into 2D map [See notebook](https://github.com/yohanesnuwara/computational-geophysics/blob/master/gravity/notebooks/fft_moving_average_2D_slice.ipynb)
 
 <div>
 <img src="https://user-images.githubusercontent.com/51282928/77532829-40544300-6ec8-11ea-9426-261bae10a1e2.PNG" width="700"/>
@@ -30,7 +30,7 @@ Data: [Roosevelt Hotsprings Geothermal USA from open-source USGS data](https://g
 
 ### Regional and residual anomaly separation using Second Vertical Derivative
 
-[See notebook]()
+[See notebook](https://github.com/yohanesnuwara/computational-geophysics/blob/master/gravity/notebooks/second_vertical_derivative.ipynb)
 
 <div>
 <img src="https://user-images.githubusercontent.com/51282928/77532985-932dfa80-6ec8-11ea-9e04-b39ba5536487.PNG" width="800"/>
