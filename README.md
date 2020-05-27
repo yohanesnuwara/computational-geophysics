@@ -42,6 +42,10 @@ Data: [Roosevelt Hotsprings Geothermal USA from open-source USGS data](https://g
 
 * Notebooks containing seismic processing and seismic attribute analysis of Dutch F3 seismic cube from [`open-geoscience-repository`](https://github.com/yohanesnuwara/open-geoscience-repository)
 
+![image](https://user-images.githubusercontent.com/51282928/83016013-81451100-a04b-11ea-8302-64c1428b00ce.png)
+
+![image](https://user-images.githubusercontent.com/51282928/83016104-a33e9380-a04b-11ea-881a-8caf45e7d061.png)
+
 ## Magnetic
 Still empty.
 
