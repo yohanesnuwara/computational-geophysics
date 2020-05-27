@@ -36,10 +36,11 @@ Data: [Roosevelt Hotsprings Geothermal USA from open-source USGS data](https://g
 <img src="https://user-images.githubusercontent.com/51282928/77532985-932dfa80-6ec8-11ea-9e04-b39ba5536487.PNG" width="800"/>
 </div>
 
-## Magnetic
-Still empty.
-
 ## Seismic
+
+### `seis-util`: Library for basic processing of seismic data
+
+## Magnetic
 Still empty.
 
 ## Electrical
