@@ -38,7 +38,7 @@ Data: [Roosevelt Hotsprings Geothermal USA from open-source USGS data](https://g
 
 ## Seismic
 
-### [`seis_util`](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/seis_util.py): Library for basic processing of seismic data
+### [`seis_util`](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/seis_util.py): Library for basic processing of seismic data. See [Notebook](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/seis_util.ipynb)
 
 > Use library `segyio` for seismic io
 
