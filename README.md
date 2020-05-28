@@ -40,11 +40,13 @@ Data: [Roosevelt Hotsprings Geothermal USA from open-source USGS data](https://g
 
 ### [`seis_util`](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/seis_util.py): Library for basic processing of seismic data
 
+> Use library `segyio` for seismic io
+
 * `slicing`: to slice inline, crossline, or timeslice from 3D seismic cube
 * `display_slice`: to display the seismic slices
 * `frequency_spectrum`: to compute frequency spectrum of an inline, a crossline, or the whole 3D cube
 
-* Notebooks containing seismic processing and seismic attribute analysis of Dutch F3 seismic cube from [`open-geoscience-repository`](https://github.com/yohanesnuwara/open-geoscience-repository)
+Notebooks containing seismic processing and seismic attribute analysis of Dutch F3 seismic cube from [`open-geoscience-repository`](https://github.com/yohanesnuwara/open-geoscience-repository)
 
 ![Netherlands-F3-Nuwara](https://user-images.githubusercontent.com/51282928/83105174-5eb30680-a0e4-11ea-8d17-f4a7ecdcaf0f.png)
 
