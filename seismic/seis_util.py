@@ -17,15 +17,15 @@ def slicing(cube, type, loc, a_line):
 
   if type == 'il':
     id = np.where(a_line == loc)[0][0]
-    slices = data[id,:,:]
+    slices = cube[id,:,:]
   
   if type == 'xl':
     id = np.where(a_line == loc)[0][0]
-    slices = data[:,id,:]
+    slices = cube[:,id,:]
   
   if type == 'ts':
     id = np.where(a_line == loc)[0][0]
-    slices = data[:,:,id]
+    slices = cube[:,:,id]
   
   return(slices)
 
