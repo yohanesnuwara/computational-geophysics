@@ -62,6 +62,6 @@ def display_slice(slices, type, b_line, c_line, cmap, vmin, vmax):
     plt.colorbar(p1)
    
   if type == 'ts':
-    extent = [b_line[0], b_line[-1], c_line[0], c_line[-1]]
+    extent = [b_line[0], b_line[-1], c_line[-1], c_line[0]]
     p1 = plt.imshow(slices.T, vmin=vmin, vmax=vmax, aspect='auto', extent=extent, cmap=cmap)
     plt.colorbar(p1)
