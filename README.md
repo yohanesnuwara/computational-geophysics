@@ -38,13 +38,11 @@ Data: [Roosevelt Hotsprings Geothermal USA from open-source USGS data](https://g
 
 ## Seismic
 
-### [`seis-util`](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/seis-util.py): Library for basic processing of seismic data
+### [`seis_util`](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/seis-util.py): Library for basic processing of seismic data
 
 * Notebooks containing seismic processing and seismic attribute analysis of Dutch F3 seismic cube from [`open-geoscience-repository`](https://github.com/yohanesnuwara/open-geoscience-repository)
 
-![image](https://user-images.githubusercontent.com/51282928/83016013-81451100-a04b-11ea-8302-64c1428b00ce.png)
-
-![image](https://user-images.githubusercontent.com/51282928/83016104-a33e9380-a04b-11ea-881a-8caf45e7d061.png)
+![Netherlands-F3-Nuwara](https://user-images.githubusercontent.com/51282928/83105174-5eb30680-a0e4-11ea-8d17-f4a7ecdcaf0f.png)
 
 ## Magnetic
 Still empty.
