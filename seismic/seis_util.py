@@ -233,3 +233,49 @@ def attribute_input(slices, type):
     darray = np.reshape(np.transpose(slices), (np.transpose(slices)).shape + (1,))
   
   return(darray)
+
+def display_attribute(computed_attribute, type, b_line, c_line, cmap, vmin, vmax):
+  """
+  Processing the output from d2geo attribute for matplotlib display
+
+  Input:
+
+  computed_attribute: output from the attribute computation (3D Dask array)
+  type: 'il' for inline, 'xl' for crossline, 'ts' for timeslice
+
+  b_line, c_line: array of inline, crossline, and timeslice, depends on the 
+                  type you're choosing (1D numpy array)
+  * for 'il': b_line = crossline array, c_line = twt array
+  * for 'xl': b_line = inline array, c_line = twt array
+  * for 'ts': b_line = inline array, c_line = crossline array
+
+  cmap: matplotlib pyplot colormaps ('gray', 'RdBu', 'seismic', 
+        jet, Accent, ...)
+  vmin, vmax: the minimum and maximum range for colormap. Many options:
+  * None, None: normal and default plotting
+  * specified vmin, vmax (e.g. vmin = 0, vmax = 1000)
+  * vmin = -percentile99, vmax = +percentile99, percentiles of the cube
+
+  Output:
+
+  attribute_slice: 2D Numpy array
+  """
+
+  import numpy as np
+  import matplotlib.pyplot as plt
+
+  if type == 'il' or type == 'xl':
+    trans_attr = computed_attribute.T
+    reshape = trans_attr.reshape((trans_attr.shape[0], -1))
+
+    extent = [b_line[0], b_line[-1], c_line[-1], c_line[0]]
+    p1 = plt.imshow(reshape.T, vmin=vmin, vmax=vmax, aspect='auto', extent=extent, cmap=cmap)
+    plt.colorbar(p1)
+
+  if type == 'ts':
+    trans_attr = computed_attribute.T
+    reshape = trans_attr.reshape((trans_attr.shape[0], -1))
+
+    extent = [b_line[0], b_line[-1], c_line[-1], c_line[0]]
+    p1 = plt.imshow(reshape, vmin=vmin, vmax=vmax, aspect='auto', extent=extent, cmap=cmap)
+    plt.colorbar(p1)    
