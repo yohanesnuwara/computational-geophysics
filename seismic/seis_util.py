@@ -108,7 +108,7 @@ def frequency_spectrum(data, type, il_array, xl_array, twt_array, sample_rate):
 
     # time
     min_time = 0
-    max_time = len(twt)
+    max_time = len(twt_array)
 
     # crosslines
     xmin = 0
@@ -139,7 +139,7 @@ def frequency_spectrum(data, type, il_array, xl_array, twt_array, sample_rate):
 
     # time
     min_time = 0
-    max_time = len(twt)
+    max_time = len(twt_array)
 
     # crosslines
     xmin = 0
@@ -168,7 +168,7 @@ def frequency_spectrum(data, type, il_array, xl_array, twt_array, sample_rate):
 
     # time
     min_time = 0
-    max_time = len(twt)
+    max_time = len(twt_array)
 
     # crosslines
     xmin = 0
