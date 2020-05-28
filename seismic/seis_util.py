@@ -205,3 +205,31 @@ def frequency_spectrum(data, type, il_array, xl_array, twt_array, sample_rate):
     spec_seis = np.convolve(spec_seis, roll_win, mode='same')
 
   return(freq_seis, spec_seis)
+
+def attribute_input(slices, type):
+  """
+  Preparing the input array for attribute processing, after that passed to d2geo
+
+  Input:
+
+  slices: inline, crossline, or time slices output of function `slicing`
+          (2D numpy array)
+  type: 'il' for inline, 'xl' for crossline, 'ts' for timeslice
+
+  Output:
+
+  darray: 3D numpy array, that will be passed to d2geo attributes 
+  """
+
+  import numpy as np
+
+  if type == 'il':
+    darray = np.reshape(slices, slices.shape + (1,))
+  
+  if type == 'xl':
+    darray = np.reshape(slices, slices.shape + (1,))    
+  
+  if type == 'ts':
+    darray = np.reshape(np.transpose(slices), (np.transpose(slices)).shape + (1,))
+  
+  return(darray)
