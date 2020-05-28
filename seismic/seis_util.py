@@ -188,7 +188,7 @@ def frequency_spectrum(data, type, il_array, xl_array, twt_array, sample_rate):
 
     # take average of each individual mean values of xl in the inline section
 
-    trace = np.mean(transp_slice[min_time:max_time, ymin:ymax], axis=1)
+    trace = np.mean(transp_xl[min_time:max_time, ymin:ymax], axis=1)
 
     Fs_seis = 1 / sample_rate  # Seconds.
     n_seis = len(trace)
