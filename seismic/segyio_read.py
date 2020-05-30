@@ -11,7 +11,7 @@ with segyio.open(filename) as f:
   inlines = f.ilines
   crosslines = f.xlines
   twt = f.samples
-  sample_rate = twt[1] - twt[0]
+  sample_rate = segyio.tools.dt(f) / 1000
   print('Inline range from', inlines[0], 'to', inlines[-1])
   print('Crossline range from', crosslines[0], 'to', crosslines[-1])
   print('TWT from', twt[0], 'to', twt[-1])   
