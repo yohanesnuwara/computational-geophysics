@@ -52,6 +52,8 @@ Notebooks containing seismic processing and seismic attribute analysis of Dutch 
 
 ### [`seis_widget`](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/seis_widget.py): Interactive slider to display slices of 3D seismic cube. See [Notebook](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/seis_widget.ipynb)
 
+### [`seis_attribute`]()
+
 ![image](https://user-images.githubusercontent.com/51282928/83326031-1be75f00-a29b-11ea-8e83-883f7a6bc819.png)
 
 ## Magnetic
