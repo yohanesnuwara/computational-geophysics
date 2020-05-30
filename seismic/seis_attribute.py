@@ -1,7 +1,7 @@
-def seis_attribute_2d(cube, type='il', inline_loc=400, xline_loc=1000, 
-                      timeslice_loc=1404, attribute_class='CompleTrace', 
-                      attribute_type='Envelope', kernel=None, sample_rate=4, 
-                      dip_factor=10):
+def attribute_2d(cube, type='il', inline_loc=400, xline_loc=1000, 
+                 timeslice_loc=1404, attribute_class='CompleTrace', 
+                 attribute_type='cosphase', kernel=None, sample_rate=4, 
+                 dip_factor=10, axis=-1):
   """
   Computing attribute of a 3D cube, output a 2D attribute slice 
   (Copyright, Y. Nuwara, ign.nuwara97@gmail.com)
@@ -78,8 +78,11 @@ def seis_attribute_2d(cube, type='il', inline_loc=400, xline_loc=1000,
 
   import numpy as np
   import segyio
-  import attributes
-  from attributes import CompleTrace, DipAzm, EdgeDetection, Frequency, SignalProcess
+  from CompleTrace import ComplexAttributes
+  from DipAzm import DipAzm
+  from EdgeDetection import EdgeDetection
+  from Frequency import Frequency
+  from SignalProcess import SignalProcess
 
   # slicing the 3D cube based on inline, crossline, or timeslice selection
   # processing input to attribute computation 
@@ -106,117 +109,122 @@ def seis_attribute_2d(cube, type='il', inline_loc=400, xline_loc=1000,
 
   if attribute_class == 'Amplitude':
     x = SignalProcess()
-    darray, chunks_init = SignalProcess.create_array(x, slices, kernel, preview=None)  
+    darray, chunks_init = SignalProcess.create_array(x, darray, kernel, preview=None)  
+    darray = darray.T
 
     if attribute_type == 'fder':
-      result = first_derivative(x, darray, axis=-1, preview=None)
+      result = SignalProcess.first_derivative(x, darray, axis=-1, preview=None)
     
     if attribute_type == 'sder':
-      result = second_derivative(x, darray, axis=-1, preview=None)
+      result = SignalProcess.second_derivative(x, darray, axis=-1, preview=None)
 
     if attribute_type == 'rms':
-      result = rms(x, darray, kernel=(1,1,9), preview=None)
+      result = SignalProcess.rms(x, darray, kernel=(1,1,9), preview=None)
 
     if attribute_type == 'gradmag':
-      result = gradient_magnitude(x, darray, sigmas=(1,1,1), preview=None)
+      result = SignalProcess.gradient_magnitude(x, darray, sigmas=(1,1,1), preview=None)
 
     if attribute_type == 'reflin':
-      result = reflection_intensity(x, darray, kernel=(1,1,9), preview=None)
+      result = SignalProcess.reflection_intensity(x, darray, kernel=(1,1,9), preview=None)
 
   if attribute_class == 'CompleTrace':  
     x = ComplexAttributes()
-    darray, chunks_init = ComplexAttributes.create_array(x, darray, kernel=kernel, preview=None)
+    darray, chunks_init = ComplexAttributes.create_array(x, darray, kernel, preview=None)
+    darray = darray.T
 
     if attribute_type == 'enve':
-      result = envelope(x, darray, preview=None)
+      result = ComplexAttributes.envelope(x, darray, preview=None)
 
     if attribute_type == 'inphase':
-      result = instantaneous_phase(x, darray, preview=None)   
+      result = ComplexAttributes.instantaneous_phase(x, darray, preview=None)   
 
     if attribute_type == 'cosphase':
-      result = cosine_instantaneous_phase(x, darray, preview=None)   
+      result = ComplexAttributes.cosine_instantaneous_phase(x, darray, preview=None)   
 
     if attribute_type == 'ampcontrast':
-      result = relative_amplitude_change(x, darray, preview=None)
+      result = ComplexAttributes.relative_amplitude_change(x, darray, preview=None)
     
     if attribute_type == 'ampacc':
-      result = amplitude_acceleration(x, darray, preview=None)
+      result = ComplexAttributes.amplitude_acceleration(x, darray, preview=None)
     
     if attribute_type == 'infreq':
-      result = instantaneous_frequency(x, darray, sample_rate=4, preview=None)
+      result = ComplexAttributes.instantaneous_frequency(x, darray, sample_rate=4, preview=None)
 
     if attribute_type == 'inband':
-      result = instantaneous_bandwidth(x, darray, preview=None)
+      result = ComplexAttributes.instantaneous_bandwidth(x, darray, preview=None)
     
     if attribute_type == 'domfreq':
-      result = dominant_frequency(x, darray, sample_rate=4, preview=None)
+      result = ComplexAttributes.dominant_frequency(x, darray, sample_rate=4, preview=None)
 
     if attribute_type == 'freqcontrast':
-      result = dominant_frequency(x, darray, sample_rate=4, preview=None)
+      result = ComplexAttributes.dominant_frequency(x, darray, sample_rate=4, preview=None)
 
     if attribute_type == 'sweet':
-      result = sweetness(x, darray, sample_rate=4, preview=None)
+      result = ComplexAttributes.sweetness(x, darray, sample_rate=4, preview=None)
 
     if attribute_type == 'quality':
-      result = quality_factor(x, darray, sample_rate=4, preview=None)
+      result = ComplexAttributes.quality_factor(x, darray, sample_rate=4, preview=None)
     
     if attribute_type == 'resphase':
-      result = response_phase(x, darray, preview=None)
+      result = ComplexAttributes.response_phase(x, darray, preview=None)
 
     if attribute_type == 'resfreq':
-      result = response_frequency(x, darray, sample_rate=4, preview=None)
+      result = ComplexAttributes.response_frequency(x, darray, sample_rate=4, preview=None)
     
     if attribute_type == 'resamp':
-      result = response_amplitude(x, darray, preview=None)
+      result = ComplexAttributes.response_amplitude(x, darray, preview=None)
 
     if attribute_type == 'apolar':
-      result = apparent_polarity(x, darray, preview=None)
+      result = ComplexAttributes.apparent_polarity(x, darray, preview=None)
 
   if attribute_class == 'DipAzm':
     x = DipAzm()
-    darray, chunks_init = DipAzm(x, darray, kernel=None, preview=None)
+    darray, chunks_init = DipAzm.create_array(x, darray, kernel=None, preview=None)
+    darray = darray.T
 
     if attribute_type == 'dipgrad':
-      il_dip, xl_dip = gradient_dips(x, darray, dip_factor=10, kernel=(3,3,3), preview=None)
+      il_dip, xl_dip = DipAzm.gradient_dips(x, darray, dip_factor=10, kernel=(3,3,3), preview=None)
 
     if attribute_type == 'gst':
-      gi2, gj2, gk2, gigj, gigk, gjgk = gradient_structure_tensor(x, darray, kernel, preview=None)
+      gi2, gj2, gk2, gigj, gigk, gjgk = DipAzm.gradient_structure_tensor(x, darray, kernel, preview=None)
     
     if attribute_type == 'gstdip2d':
-      il_dip, xl_dip = gst_2D_dips(x, darray, dip_factor=10, kernel=(3,3,3), preview=None)
+      il_dip, xl_dip = DipAzm.gst_2D_dips(x, darray, dip_factor=10, kernel=(3,3,3), preview=None)
 
     if attribute_type == 'gstdip3d':
-      result = gst_3D_dip(x, darray, dip_factor=10, kernel=(3,3,3), preview=None)
+      result = DipAzm.gst_3D_dip(x, darray, dip_factor=10, kernel=(3,3,3), preview=None)
 
     if attribute_type == 'gstazm3d':
-      result = gst_3D_azm(x, darray, dip_factor=10, kernel=(3,3,3), preview=None)
+      result = DipAzm.gst_3D_azm(x, darray, dip_factor=10, kernel=(3,3,3), preview=None)
 
 
   if attribute_class == 'EdgeDetection':  
     x = EdgeDetection()
     darray, chunks_init = EdgeDetection.create_array(x, darray, kernel, preview=None)
+    darray = darray.T
 
     if attribute_type == 'semblance':
-      result = semblance(x, darray, kernel=(3,3,9), preview=None)
+      result = EdgeDetection.semblance(x, darray, kernel=(3,3,9), preview=None)
 
     if attribute_type == 'gstdisc':
-      result = gradient_structure_tensor(x, darray, kernel=(3,3,9), preview=None)
+      result = EdgeDetection.gradient_structure_tensor(x, darray, kernel=(3,3,9), preview=None)
     
     if attribute_type == 'eigen':
-      result = eig_complex(x, darray, kernel=(3,3,9), preview=None)
+      result = EdgeDetection.eig_complex(x, darray, kernel=(3,3,9), preview=None)
 
     if attribute_type == 'chaos':
-      result = chaos(x, darray, kernel=(3,3,9), preview=None)
+      result = EdgeDetection.chaos(x, darray, kernel=(3,3,9), preview=None)
 
     if attribute_type == 'curv':
       # compute first inline and xline dips from gst
       x = DipAzm()
       darray_il, darray_xl = DipAzm.gradient_dips(x, darray, dip_factor=10, kernel=(3,3,3), preview=None)
       # compute curvature
-      H, K, Kmax, Kmin, KMPos, KMNeg = volume_curvature(x, darray_il, darray_xl, dip_factor=10, kernel=(3,3,3), 
+      H, K, Kmax, Kmin, KMPos, KMNeg = EdgeDetection.volume_curvature(x, darray_il, darray_xl, dip_factor=10, kernel=(3,3,3), 
                          preview=None) 
   
-  return(result, il_dip, xl_dip, gi2, gj2, gk2, gigj, gigk, gjgk, H, K, Kmax, Kmin, KMPos, KMNeg)
+  # return(result, il_dip, xl_dip, gi2, gj2, gk2, gigj, gigk, gjgk, H, K, Kmax, Kmin, KMPos, KMNeg)
+  return(result)
   
 
 def display_attribute(computed_attribute, type, b_line, c_line, cmap, vmin, vmax):
