@@ -16,8 +16,21 @@
 ### Structure of `slice_cube` function
 
 ```
-def slice_cube(cube=data, type='il', inline_loc=400, inline_array=inlines, xline_loc=None, xline_array=None, timeslice_loc=None, timeslice_array=None, display='Yes', cmap='gray', figsize=None, vmin=None, 
+def slice_cube(cube=data, type='il', inline_loc=400, inline_array=inlines, xline_loc=None, xline_array=None, timeslice_loc=None, timeslice_array=None, display='Yes', cmap='gray', figsize=None, vmin=None, vmax=None) 
 ```
+
+|**Variable**|**Type**|**Description**|**Options**|
+|:--:|:--:|:--:|:--:|
+|`cube`|3D numpy array|3D seismic data output of `segyio.tools.cube`||
+|`type`|string|specify the type of slice|`il` for inline<br>`xl` for crossline<br>`ts` for timeslice|
+|`inline_loc`|integer|preferred location of inline, if `type='il'` is chosen||
+|`xline_loc`|integer|preferred location of crossline, if `type='xl'` is chosen||
+|`timeslice_loc`|integer|preferred location of timeslice, if `type='ts'` is chosen||
+|`display`|string|display option|<ul> <li>`Yes`display slice</li> <li>`No`don't display slice<br>output only `slice`</li> </ul>|
+|`cmap`|string|(Only for `Yes` display) colormap option, default is `gray`|`seismic`, `RdBu`, `PuOr`, `Accent`, etc.|
+|`figsize`|2-size tuple|(Only for `Yes` display) figure size, default is `None`|example: `(20,10)`|
+|`vmin`|float/int|(Only for `Yes` display) lowest limit for colormap, default is `None`|example: 99th percentile value, see `segyio_read.py`|
+|`vmax`|float/int|(Only for `Yes` display) upper limit for colormap, default is `None`|example: 99th percentile value, see `segyio_read.py`|
 
 ## `frequency_spectrum`
 
