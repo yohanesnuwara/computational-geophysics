@@ -9,13 +9,26 @@
 |_____ `attribute_2d`<br>
 |_____ `display_attribute`
 
+## Structure of `attribute_2d` function
+
+```
+attribute_2d(cube, type='il', inline_loc=400, xline_loc=1000, timeslice_loc=1404, attribute_class='CompleTrace', attribute_type='cosphase', **spec=...)`
+```
+
+|**Variable**|**Type**|**Description**|**Options**|
+|:--:|:--:|:--:|:--:|
+|`cube`|3D numpy array|3D seismic data output of `segyio.tools.cube`||
+|`type`|string|specify the type of slice|`il` for inline<br>`xl` for crossline<br>`ts` for timeslice|
+|`inline_loc`|integer|preferred location of inline, if `type='il'` is chosen||
+|`xline_loc`|integer|preferred location of crossline, if `type='xl'` is chosen||
+|`timeslice_loc`|integer|preferred location of timeslice, if `type='ts'` is chosen||
+|`attribute_class`|string|class of attribute|See list below|
+|`attribute_type`|string|type of attribute depends on its class|See list below|
+|`**spec`|any|specified inputs depends on its attribute type|See list below|
+
 ## List of Attributes (sorted alphabetically) & its Details
 
-```
-attribute_2d(cube, type='il', inline_loc=400, xline_loc=1000, timeslice_loc=1404, attribute_class='CompleTrace', attribute_type='cosphase', **default)`
-```
-
-|**Attribute Class**|**Attribute Type**|**Description**|**Input**|**Default Input**|**Output**|
+|**Attribute Class**|**Attribute Type**|**Description**|**Input**|**Specified Input**|**Output**|
 |:--:|:--:|:--:|:--:|:--:|:--:|
 |`Amplitude`|`fder`|first derivative|`cube`|`axis=-1`||
 |`Amplitude`|`gradmag`|gradient magnitude<br> using Gaussian operator|`cube`|`sigmas=(1,1,1)`||
