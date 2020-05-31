@@ -1,5 +1,5 @@
-def slice_cube(cube=data, type='il', 
-               inline_loc=400, inline_array=inlines,
+def slice_cube(cube, type='il', 
+               inline_loc=400, inline_array=None,
                xline_loc=None, xline_array=None,
                timeslice_loc=None, timeslice_array=None,
                display='Yes', cmap='gray', figsize=None, vmin=None, vmax=None):
@@ -44,47 +44,49 @@ def slice_cube(cube=data, type='il',
 
   """
 
+  import numpy as np
+  import matplotlib.pyplot as plt
+
   if type == 'il':
-
-    with segyio.open(filename) as f: 
-        inline_slice = f.iline[inline_loc]
+    id = np.where(inline_array == inline_loc)[0][0]
+    inline_slice = cube[id,:,:]
+    
+    if display == 'No':
+      return(inline_slice)
         
-        if display == 'No':
-          return(inline_slice)
-            
-        if display == 'Yes':
-          plt.figure(figsize=figsize)
-          plt.title('Dutch F3 Seismic at Inline {}'.format(inline_loc), size=20, pad=20)
-          extent = [crosslines[0], crosslines[-1], twt[-1], twt[0]]
+    if display == 'Yes':
+      plt.figure(figsize=figsize)
+      plt.title('Dutch F3 Seismic at Inline {}'.format(inline_loc), size=20, pad=20)
+      extent = [xline_array[0], xline_array[-1], timeslice_array[-1], timeslice_array[0]]
 
-          p1 = plt.imshow(inline_slice.T, cmap=cmap, aspect='auto', extent=extent,
-                          vmin=vmin, vmax=vmax)
+      p1 = plt.imshow(inline_slice.T, cmap=cmap, aspect='auto', extent=extent,
+                      vmin=vmin, vmax=vmax)
 
-          plt.xlabel('Crossline', size=15); plt.ylabel('TWT', size=15)
-          plt.show()
+      plt.xlabel('Crossline', size=15); plt.ylabel('TWT', size=15)
+      plt.show()
 
   if type == 'xl':
 
-    with segyio.open(filename) as f:
-        xline_slice = f.xline[xline_loc]  
+    id = np.where(xline_array == xline_loc)[0][0]
+    xline_slice = cube[:,id,:]
 
-        if display == 'No':
-          return(xline_slice)
-        
-        if display == 'Yes':
-          plt.figure(figsize=figsize)
-          plt.title('Dutch F3 Seismic at Crossline {}'.format(xline_loc), size=20, pad=20)
-          extent = [inlines[0], inlines[-1], twt[-1], twt[0]]
+    if display == 'No':
+      return(xline_slice)
+    
+    if display == 'Yes':
+      plt.figure(figsize=figsize)
+      plt.title('Dutch F3 Seismic at Crossline {}'.format(xline_loc), size=20, pad=20)
+      extent = [inline_array[0], inline_array[-1], timeslice_array[-1], timeslice_array[0]]
 
-          p1 = plt.imshow(xline_slice.T, cmap=cmap, aspect='auto', extent=extent, 
-                          vmin=vmin, vmax=vmax)
+      p1 = plt.imshow(xline_slice.T, cmap=cmap, aspect='auto', extent=extent, 
+                      vmin=vmin, vmax=vmax)
 
-          plt.xlabel('Inline', size=15); plt.ylabel('TWT', size=15)
-          plt.show()
+      plt.xlabel('Inline', size=15); plt.ylabel('TWT', size=15)
+      plt.show()
   
   if type == 'ts':
 
-    id = np.where(twt == timeslice_loc)[0][0]
+    id = np.where(timeslice_array == timeslice_loc)[0][0]
     tslice = cube[:,:,id]
 
     if display == 'No':
@@ -94,16 +96,16 @@ def slice_cube(cube=data, type='il',
 
       plt.figure(figsize=figsize)
       plt.title('Dutch F3 Seismic at Timeslice {} ms'.format(timeslice_loc), size=20, pad=20)
-      extent = [inlines[0], inlines[-1], crosslines[-1], crosslines[0]]
+      extent = [inline_array[0], inline_array[-1], xline_array[-1], xline_array[0]]
 
       p1 = plt.imshow(tslice.T, cmap=cmap, aspect='auto', extent=extent, 
                       vmin=vmin, vmax=vmax)
 
       plt.xlabel('Inline', size=15); plt.ylabel('Crossline', size=15)
-      plt.xlim(min(inlines), max(inlines))
-      plt.ylim(min(crosslines), max(crosslines))
+      plt.xlim(min(inline_array), max(inline_array))
+      plt.ylim(min(xline_array), max(xline_array))
       plt.axis('equal')
-      plt.show()   
+      plt.show()  
 
 def slicing(cube, type, loc, a_line):
 
