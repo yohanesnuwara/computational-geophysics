@@ -21,7 +21,7 @@
 |`CompleTrace`|`ampacc`|amplitude acceleration||||
 |`CompleTrace`|`ampcontrast`|relative amplitude contrast||||
 |`CompleTrace`|`apolar`|apparent polarity||||
-|`CompleTrace`|`cosphase`|cosine of instantaneous phase||||
+|`CompleTrace`|`cosphase`|cosine of instantaneous<br> phase||||
 |`CompleTrace`|`domfreq`|dominant frequency||||
 |`CompleTrace`|`enve`|envelope||||
 |`CompleTrace`|`freqcontrast`|frequency change||||
@@ -38,3 +38,8 @@
 |`DipAzm`|`gstdip2d`|2D gradient dips<br> from GST||||
 |`DipAzm`|`gstdip3d`|3D gradient dips<br> from GST||||
 |`DipAzm`|`gstazm3d`|3D azimuth<br> from GST||||
+|`EdgeDetection`|`chaos`|multi-trace chaos||||
+|`EdgeDetection`|`curv`|volume curvature<br> from 3D seismic dips||||
+|`EdgeDetection`|`eigen`|eigen semblance||||
+|`EdgeDetection`|`gstdisc`|discontinuity from<br> eigenvalues of GST||||
+|`EdgeDetection`|`semblance`|semblance||||
