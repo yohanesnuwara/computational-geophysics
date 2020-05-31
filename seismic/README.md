@@ -1,13 +1,13 @@
 # Documentation for `seis_package`
 
 `seis_util`<br>
-|_____ `slice_cube`<br>
-|_____ `frequency_spectrum`<br>
+|_____ `slice_cube`: Slicing a 3D seismic cube into inline, crossline, or timeslice 2D section. Then, display it.<br>
+|_____ `frequency_spectrum`: Computing frequency spectrum of the whole 3D seismic cube, or 2D sections (inline or crossline)<br>
 
 `seis_attribute`<br>
-|_____ `attribute_2d`<br>
+|_____ `attribute_2d`: Computing attribute of a 2D seismic data<br>
 |_____ `attribute_3d`<br>
-|_____ `display_attribute`
+|_____ `display_attribute`: Display into a computed attribute section
 
 # `seis_util`
 
