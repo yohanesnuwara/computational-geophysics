@@ -92,6 +92,52 @@ array([[    0.,     0.,     0., ...,   408.,  1717.,   389.],
 
 ## `frequency_spectrum`
 
+### Structure of `frequency_spectrum`
+
+```
+frequency_spectrum(data, type='il', inline_array=None, xline_array=None, timeslice_array=None, sample_rate=0.004)
+```
+
+### Input Variables
+
+|**Variable**|**Type**|**Description**|**Options**|
+|:--:|:--:|:--:|:--:|
+|`cube`|3D numpy array|3D seismic data output of `segyio.tools.cube`||
+|`type`|string|specify the type of slice|`il` for inline<br>`xl` for crossline<br>`ts` for timeslice|
+|`inline_loc`|integer|preferred location of inline, if `type='il'` is chosen||
+|`xline_loc`|integer|preferred location of crossline, if `type='xl'` is chosen||
+|`timeslice_loc`|integer|preferred location of timeslice, if `type='ts'` is chosen||
+|`inline_array`|1D numpy array|array of inline locations<br> output of `segyio.read`||
+|`xline_array`|1D numpy array|array of crossline locations<br> output of `segyio.read`||
+|`timeslice_array`|1D numpy array|array of timeslice locations<br> output of `segyio.read`||
+|`sample_rate`|float/int|sampling rate in milliseconds<br> output of `segyio.read`||
+
+### Use 
+
+**Frequency spectrum at Inline 400**
+
+```
+frequency_spectrum(il_slices, type='il', inline_array=inlines, xline_array=crosslines, timeslice_array=twt, sample_rate=sample_rate)
+```
+
+**Frequency spectrum at Crossline 1000**
+
+```
+frequency_spectrum(xl_slices, type='xl', inline_array=inlines, xline_array=crosslines, timeslice_array=twt, sample_rate=sample_rate)
+```
+
+**Frequency spectrum of the whole cube**
+
+```
+frequency_spectrum(data, type='whole', inline_array=inlines, xline_array=crosslines, timeslice_array=twt, sample_rate=sample_rate)
+```
+
+### Output
+
+The output of this function is `freq_seis` (frequency) and `spec_seis` (amplitude) computed by FFT. To plot the spectra, use `plt.show`. This is the spectra of inline 400, crossline 1000, and the whole cube.
+
+![image](https://user-images.githubusercontent.com/51282928/83357640-c2b12580-a397-11ea-9e02-e51e09ed2f51.png)
+
 # `seis_attribute`
 
 ## `attribute_2d`
