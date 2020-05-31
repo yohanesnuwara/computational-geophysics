@@ -14,7 +14,7 @@
 |**Attribute Class**|**Attribute Type**|**Description**|**Input**|**Default Input**|**Output**|
 |:--:|:--:|:--:|:--:|:--:|:--:|
 |`Amplitude`|`fder`|first derivative||||
-|`Amplitude`|`gradmag`|gradient magnitude using Gaussian operator||||
+|`Amplitude`|`gradmag`|gradient magnitude<br> using Gaussian operator||||
 |`Amplitude`|`reflin`|reflection intensity||||
 |`Amplitude`|`rms`|root mean square||||
 |`Amplitude`|`sder`|second derivative||||
@@ -33,3 +33,8 @@
 |`CompleTrace`|`resfreq`|response frequency||||
 |`CompleTrace`|`resphase`|response phase||||
 |`CompleTrace`|`sweet`|sweetness||||
+|`DipAzm`|`dipgrad`|gradient dips from<br> inline, crossline,<br> and z-gradients||||
+|`DipAzm`|`gst`|inner product of<br> gradient structure<br> tensors (GST)||||
+|`DipAzm`|`gstdip2d`|2D gradient dips<br> from GST||||
+|`DipAzm`|`gstdip3d`|3D gradient dips<br> from GST||||
+|`DipAzm`|`gstazm3d`|3D azimuth<br> from GST||||
