@@ -9,6 +9,16 @@
 |_____ `attribute_3d`<br>
 |_____ `display_attribute`: Display into a computed attribute section
 
+# `segyio_read.py` program
+
+```
+Inline range from 100 to 750
+Crossline range from 300 to 1250
+TWT from 4.0 to 1848.0
+Sample rate: 4.0 ms
+'The 99th percentile is 6517; the max amplitude is 32767'
+```
+
 # `seis_util`
 
 ## `slice_cube`
@@ -16,7 +26,7 @@
 ### Structure of `slice_cube` function
 
 ```
-def slice_cube(cube=data, type='il', inline_loc=400, inline_array=inlines, xline_loc=None, xline_array=None, timeslice_loc=None, timeslice_array=None, display='Yes', cmap='gray', figsize=None, vmin=None, vmax=None) 
+def slice_cube(cube, type='il', inline_loc=400, inline_array=inlines, xline_loc=None, xline_array=None, timeslice_loc=None, timeslice_array=None, display='Yes', cmap='gray', figsize=None, vmin=None, vmax=None) 
 ```
 
 ### Input variables
@@ -28,6 +38,9 @@ def slice_cube(cube=data, type='il', inline_loc=400, inline_array=inlines, xline
 |`inline_loc`|integer|preferred location of inline, if `type='il'` is chosen||
 |`xline_loc`|integer|preferred location of crossline, if `type='xl'` is chosen||
 |`timeslice_loc`|integer|preferred location of timeslice, if `type='ts'` is chosen||
+|`inline_array`|1D numpy array|array of inline locations<br> output of `segyio.read`||
+|`xline_array`|1D numpy array|array of crossline locations<br> output of `segyio.read`||
+|`timeslice_array`|1D numpy array|array of timeslice locations<br> output of `segyio.read`||
 |`display`|string|display option|<ul> <li>`Yes`display slice</li> <li>`No`don't display slice<br>output only `slice`</li> </ul>|
 |`cmap`|string|(Only for `Yes` display) colormap option, default is `gray`|`seismic`, `RdBu`, `PuOr`, `Accent`, etc.|
 |`figsize`|2-size tuple|(Only for `Yes` display) figure size, default is `None`|example: `(20,10)`|
@@ -37,18 +50,24 @@ def slice_cube(cube=data, type='il', inline_loc=400, inline_array=inlines, xline
 ### Use
 
 **Slicing at inline 400 of a 3D seismic cube WITHOUT any display of it (`display='No'`)**
+
+> No need to specify `crossline_array` and `timeslice_array` for this option.
+
 ```
 slice_cube(cube=data, type='il', inline_loc=400, inline_array=inlines, display='No')
 ```
 
 **Slicing at inline 400 of a 3D seismic cube WITH the display of it (`display='Yes'`)**
+
+> Must specify all `inline_array`, `crossline_array` and `timeslice_array` for this option.
+
 Display specification:
 * Colormap `seismic`
 * Size figure `(20,10)`
 * Lower and upper limit are the 99th percentiles of the 3D cube data, `vm`, as output of `segyio.read` [(See section above)]()
 
 ```
-slice_cube(cube=data, type='il', inline_loc=400, inline_array=inlines, display='Yes', cmap='gray', figsize=(20,10), vmin=-vm, vmax=vm)
+slice_cube(cube=data, type='il', inline_loc=400, inline_array=inlines, crossline_array=crosslines, timeslice_array=twt, display='Yes', cmap='gray', figsize=(20,10), vmin=-vm, vmax=vm)
 ```
 
 ### Outputs
