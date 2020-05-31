@@ -19,6 +19,8 @@
 def slice_cube(cube=data, type='il', inline_loc=400, inline_array=inlines, xline_loc=None, xline_array=None, timeslice_loc=None, timeslice_array=None, display='Yes', cmap='gray', figsize=None, vmin=None, vmax=None) 
 ```
 
+### Input variables
+
 |**Variable**|**Type**|**Description**|**Options**|
 |:--:|:--:|:--:|:--:|
 |`cube`|3D numpy array|3D seismic data output of `segyio.tools.cube`||
@@ -32,6 +34,43 @@ def slice_cube(cube=data, type='il', inline_loc=400, inline_array=inlines, xline
 |`vmin`|float/int|(Only for `Yes` display) lowest limit for colormap, default is `None`|example: 99th percentile value, see `segyio_read.py`|
 |`vmax`|float/int|(Only for `Yes` display) upper limit for colormap, default is `None`|example: 99th percentile value, see `segyio_read.py`|
 
+### Use
+
+**Slicing at inline 400 of a 3D seismic cube WITHOUT any display of it (`display='No'`)**
+```
+slice_cube(cube=data, type='il', inline_loc=400, inline_array=inlines, display='No')
+```
+
+**Slicing at inline 400 of a 3D seismic cube WITH the display of it (`display='Yes'`)**
+Display specification:
+* Colormap `seismic`
+* Size figure `(20,10)`
+* Lower and upper limit are the 99th percentiles of the 3D cube data, `vm`, as output of `segyio.read` [(See section above)]()
+
+```
+slice_cube(cube=data, type='il', inline_loc=400, inline_array=inlines, display='Yes', cmap='gray', figsize=(20,10), vmin=-vm, vmax=vm)
+```
+
+### Outputs
+
+The outputs of two options are different. The use of variable option `display='Yes'` results BOTH `slice` and the display of seismic in `plt.show`, while the use of variable option `display='No'` results ONLY the `slice`. 
+
+**Slicing at inline 400 of a 3D seismic cube WITHOUT any display of it (`display='No'`)**
+```
+array([[    0.,     0.,     0., ...,   408.,  1717.,   389.],
+       [    0.,     0.,     0., ...,   221.,  1021.,  1023.],
+       [    0.,     0.,     0., ..., -1242.,   714.,  1032.],
+       ...,
+       [    0.,   -78.,  -101., ..., -1076.,   -84.,  1029.],
+       [    0.,   -17.,   -35., ...,  2061.,   722., -1503.],
+       [    0.,  -500.,   417., ...,  1331.,  1570.,  1016.]],
+      dtype=float32)
+```
+
+**Slicing at inline 400 of a 3D seismic cube WITH the display of it (`display='Yes'`)**
+
+![image](https://user-images.githubusercontent.com/51282928/83354775-1108f900-a385-11ea-9ba9-9c8866a62cbd.png)
+
 ## `frequency_spectrum`
 
 # `seis_attribute`
@@ -43,6 +82,8 @@ def slice_cube(cube=data, type='il', inline_loc=400, inline_array=inlines, xline
 ```
 attribute_2d(cube, output='2d', type='il', inline_loc=400, xline_loc=1000, timeslice_loc=1404, attribute_class='CompleTrace', attribute_type='cosphase', **spec=...)
 ```
+
+### Input variables
 
 |**Variable**|**Type**|**Description**|**Options**|
 |:--:|:--:|:--:|:--:|
