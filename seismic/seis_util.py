@@ -1,3 +1,110 @@
+def slice_cube(cube=data, type='il', 
+               inline_loc=400, inline_array=inlines,
+               xline_loc=None, xline_array=None,
+               timeslice_loc=None, timeslice_array=None,
+               display='Yes', cmap='gray', figsize=None, vmin=None, vmax=None):
+  
+  """
+  Slicing 3D seismic cube into 2D slice, and display it (optional)
+  (Copyright, Y. Nuwara, ign.nuwara97@gmail.com)
+
+  Input:
+
+  cube: 3D seismic data output of segyio.tools.cube (3D numpy array)
+  type: specify the type of slice
+    * 'il' for inline
+    * 'xl' for crossline
+    * 'ts' for timeslice)
+
+  inline_loc: preferred location of inline, if you specify type='il', 
+              no need to input xline_loc, timeslice_loc
+  xline_loc: preferred location of crossline, if you specify type='xl', 
+             no need to input inline_loc, timeslice_loc
+  timeslice_loc: preferred location of timeslice, if you specify type='ts', 
+                 no need to input inline_loc, xline_loc
+  
+  inline_array: array of inline locations (output from segyio.read)
+  xline_array: array of xline locations (output from segyio.read)
+  timeslice_array: array of timeslice locations (output from segyio.read)
+
+  display: Display option, specify 
+    * 'Yes' if you want to display your slice.
+    * 'No' if you don't want to display your slice, just to obtain the slice.
+
+  If you specify 'Yes', configure the display details:
+    * cmap: colormaps (Default is 'gray'. Other options 'seismic', 'RdBu', 'PuOr', etc)
+    * figsize: figure size (2-size tuple. Default is None)
+    * vmin: lowest limit for colormap (float/integer. Default is None)
+    * vmax: upper limit for colormap (float/integer. Default is None)
+
+  Output:
+
+  slice: 2D numpy array, the slice, if display='No' is specified
+  plt.show (seismic display), if display='Yes' is specified
+
+  """
+
+  if type == 'il':
+
+    with segyio.open(filename) as f: 
+        inline_slice = f.iline[inline_loc]
+        
+        if display == 'No':
+          return(inline_slice)
+            
+        if display == 'Yes':
+          plt.figure(figsize=figsize)
+          plt.title('Dutch F3 Seismic at Inline {}'.format(inline_loc), size=20, pad=20)
+          extent = [crosslines[0], crosslines[-1], twt[-1], twt[0]]
+
+          p1 = plt.imshow(inline_slice.T, cmap=cmap, aspect='auto', extent=extent,
+                          vmin=vmin, vmax=vmax)
+
+          plt.xlabel('Crossline', size=15); plt.ylabel('TWT', size=15)
+          plt.show()
+
+  if type == 'xl':
+
+    with segyio.open(filename) as f:
+        xline_slice = f.xline[xline_loc]  
+
+        if display == 'No':
+          return(xline_slice)
+        
+        if display == 'Yes':
+          plt.figure(figsize=figsize)
+          plt.title('Dutch F3 Seismic at Crossline {}'.format(xline_loc), size=20, pad=20)
+          extent = [inlines[0], inlines[-1], twt[-1], twt[0]]
+
+          p1 = plt.imshow(xline_slice.T, cmap=cmap, aspect='auto', extent=extent, 
+                          vmin=vmin, vmax=vmax)
+
+          plt.xlabel('Inline', size=15); plt.ylabel('TWT', size=15)
+          plt.show()
+  
+  if type == 'ts':
+
+    id = np.where(twt == timeslice_loc)[0][0]
+    tslice = cube[:,:,id]
+
+    if display == 'No':
+      return(tslice)
+
+    if display == 'Yes':
+
+      plt.figure(figsize=figsize)
+      plt.title('Dutch F3 Seismic at Timeslice {} ms'.format(timeslice_loc), size=20, pad=20)
+      extent = [inlines[0], inlines[-1], crosslines[-1], crosslines[0]]
+
+      p1 = plt.imshow(tslice.T, cmap=cmap, aspect='auto', extent=extent, 
+                      vmin=vmin, vmax=vmax)
+
+      plt.xlabel('Inline', size=15); plt.ylabel('Crossline', size=15)
+      plt.xlim(min(inlines), max(inlines))
+      plt.ylim(min(crosslines), max(crosslines))
+      plt.axis('equal')
+      plt.show()   
+
 def slicing(cube, type, loc, a_line):
 
   """
