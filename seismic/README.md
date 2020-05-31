@@ -1,18 +1,28 @@
 # Documentation for `seis_package`
 
 `seis_util`<br>
-|_____ `slicing`<br>
-|_____ `display_slice`<br>
+|_____ `slice_cube`<br>
 |_____ `frequency_spectrum`<br>
 
 `seis_attribute`<br>
 |_____ `attribute_2d`<br>
+|_____ `attribute_3d`<br>
 |_____ `display_attribute`
 
-## Structure of `attribute_2d` function
+# `seis_util`
+
+## `slice_cube`
+
+## `frequency_spectrum`
+
+# `seis_attribute`
+
+## `attribute_2d`
+
+### Structure of `attribute_2d` function
 
 ```
-attribute_2d(cube, type='il', inline_loc=400, xline_loc=1000, timeslice_loc=1404, attribute_class='CompleTrace', attribute_type='cosphase', **spec=...)
+attribute_2d(cube, output='2d', type='il', inline_loc=400, xline_loc=1000, timeslice_loc=1404, attribute_class='CompleTrace', attribute_type='cosphase', **spec=...)
 ```
 
 |**Variable**|**Type**|**Description**|**Options**|
@@ -26,13 +36,7 @@ attribute_2d(cube, type='il', inline_loc=400, xline_loc=1000, timeslice_loc=1404
 |`attribute_type`|string|type of attribute depends on its class|See list below|
 |`**spec`|any|specified inputs depends on its attribute type|See list below|
 
-## Structure of `attribute_3d` function
-
-```
-attribute_3d(cube, attribute_class='CompleTrace', attribute_type='cosphase', **spec=...)
-```
-
-## List of Attributes (sorted alphabetically) & its Details
+### List of Attributes (sorted alphabetically) & its Details
 
 |**Attribute Class**|**Attribute Type**|**Description**|**Input**|**Specified Input**|**Output**|
 |:--:|:--:|:--:|:--:|:--:|:--:|
