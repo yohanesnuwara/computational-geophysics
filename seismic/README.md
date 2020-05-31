@@ -13,6 +13,12 @@
 
 ## `slice_cube`
 
+### Structure of `slice_cube` function
+
+```
+def slice_cube(cube=data, type='il', inline_loc=400, inline_array=inlines, xline_loc=None, xline_array=None, timeslice_loc=None, timeslice_array=None, display='Yes', cmap='gray', figsize=None, vmin=None, 
+```
+
 ## `frequency_spectrum`
 
 # `seis_attribute`
