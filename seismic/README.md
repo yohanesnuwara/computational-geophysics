@@ -13,33 +13,33 @@
 
 |**Attribute Class**|**Attribute Type**|**Description**|**Input**|**Default Input**|**Output**|
 |:--:|:--:|:--:|:--:|:--:|:--:|
-|`Amplitude`|`fder`|first derivative||||
-|`Amplitude`|`gradmag`|gradient magnitude<br> using Gaussian operator||||
-|`Amplitude`|`reflin`|reflection intensity||||
-|`Amplitude`|`rms`|root mean square||||
-|`Amplitude`|`sder`|second derivative||||
+|`Amplitude`|`fder`|first derivative||`axis=-1`||
+|`Amplitude`|`gradmag`|gradient magnitude<br> using Gaussian operator||`sigmas=(1,1,1)`||
+|`Amplitude`|`reflin`|reflection intensity||`kernel=(1,1,9)`||
+|`Amplitude`|`rms`|root mean square||`kernel=(1,1,9)`||
+|`Amplitude`|`sder`|second derivative||`axis=-1`||
 |`CompleTrace`|`ampacc`|amplitude acceleration||||
 |`CompleTrace`|`ampcontrast`|relative amplitude contrast||||
 |`CompleTrace`|`apolar`|apparent polarity||||
 |`CompleTrace`|`cosphase`|cosine of instantaneous<br> phase||||
-|`CompleTrace`|`domfreq`|dominant frequency||||
+|`CompleTrace`|`domfreq`|dominant frequency||`sample_rate=4`||
 |`CompleTrace`|`enve`|envelope||||
-|`CompleTrace`|`freqcontrast`|frequency change||||
+|`CompleTrace`|`freqcontrast`|frequency change||`sample_rate=4`||
 |`CompleTrace`|`inband`|instantaneous bandwidth||||
-|`CompleTrace`|`infreq`|instantaneous frequency||||
+|`CompleTrace`|`infreq`|instantaneous frequency||`sample_rate=4`||
 |`CompleTrace`|`inphase`|instantaneous phase||||
-|`CompleTrace`|`quality`|quality factor||||
+|`CompleTrace`|`quality`|quality factor||`sample_rate=4`||
 |`CompleTrace`|`resamp`|response amplitude||||
-|`CompleTrace`|`resfreq`|response frequency||||
+|`CompleTrace`|`resfreq`|response frequency||`sample_rate=4`||
 |`CompleTrace`|`resphase`|response phase||||
-|`CompleTrace`|`sweet`|sweetness||||
-|`DipAzm`|`dipgrad`|gradient dips from<br> inline, crossline,<br> and z-gradients||||
-|`DipAzm`|`gst`|inner product of<br> gradient structure<br> tensors (GST)||||
-|`DipAzm`|`gstdip2d`|2D gradient dips<br> from GST||||
+|`CompleTrace`|`sweet`|sweetness||`sample_rate=4`||
+|`DipAzm`|`dipgrad`|gradient dips from<br> inline, crossline,<br> and z-gradients||`dip_factor=10`,<br> `kernel=(3,3,3)`||
+|`DipAzm`|`gst`|inner product of<br> gradient structure<br> tensors (GST)||`kernel`||
+|`DipAzm`|`gstdip2d`|2D gradient dips<br> from GST||`dip_factor=10`,<br> `kernel=(3,3,3)`||
 |`DipAzm`|`gstdip3d`|3D gradient dips<br> from GST||||
-|`DipAzm`|`gstazm3d`|3D azimuth<br> from GST||||
-|`EdgeDetection`|`chaos`|multi-trace chaos||||
-|`EdgeDetection`|`curv`|volume curvature<br> from 3D seismic dips||||
-|`EdgeDetection`|`eigen`|eigen semblance||||
-|`EdgeDetection`|`gstdisc`|discontinuity from<br> eigenvalues of GST||||
-|`EdgeDetection`|`semblance`|semblance||||
+|`DipAzm`|`gstazm3d`|3D azimuth<br> from GST||`dip_factor=10`,<br> `kernel=(3,3,3)`||
+|`EdgeDetection`|`chaos`|multi-trace chaos||`kernel=(3,3,9)`||
+|`EdgeDetection`|`curv`|volume curvature<br> from 3D seismic dips||`dip_factor=10`,<br> `kernel=(3,3,3)`||
+|`EdgeDetection`|`eigen`|eigen semblance||`kernel=(3,3,9)`||
+|`EdgeDetection`|`gstdisc`|discontinuity from<br> eigenvalues of GST||`kernel=(3,3,9)`||
+|`EdgeDetection`|`semblance`|semblance||`kernel=(3,3,9)`||
