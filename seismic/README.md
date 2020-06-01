@@ -244,3 +244,29 @@ In the Dutch F3 data for instance, `il_size=651`, `xl_size=951`, and `twt_size=4
 In other cases for other data, you may encounter after `segyio_read` that the cube dimension is in different order, for instance `(il_size, xl_size, twt_size)`. So, you have to transpose your cube first!
 
 Run `cube.transpose((1,0,2))` to make your `il_size` and `xl_size` to switch, so at the end you will have the right dimension `(il_size, xl_size, twt_size)`.
+
+#### Computing attributes
+
+In function `attribute_3d` to compute the attributes, the general input is `cube`, the 3D seismic cube data. If you want a 3D attribute cube, pass `output='3d'`, and if you want a 2D attribute slice, pass `output='2d'` in the input. 
+
+For `2d` output, you need to specify the slice types `type` as `'il'`, `'xl'`, or `'ts'`, and respective locations `inline_loc`, `xline_loc`, `timeslice_loc`. You need to specify all `inline_array`, `xline_array`, and `timeslice_array`.
+
+Also, you encounter specified input variables `**spec` in each attrubute listed above. These variables are **optional**, meaning that if you don't define these variables, the function will compute its **default** values. 
+
+For instance, see attribute type `sweetness`. The specified input is `sample_rate`. You may calculate the sampling rate from [`segyio_read`](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/segyio_read.py) method. If you do not specify it, the program will still run with its default value `0.004` in ms. 
+
+Case 1. Create a 2D Sweetness Timeslice at 1404 ms  
+
+```
+result = attribute_3d(cube=data, output='2d', type='ts', inline_loc=1404, inline_array=inlines, 
+                      attribute_class='CompleTrace', attribute_type='sweetness',
+                      sample_rate=0.002)
+```
+
+### Outputs
+
+|`type`|Dimension|Example: Dutch F3|
+|:--:|:--:|:--:|
+|`il`|`(1, twt_size, xl_size)`|`(1, 462, 951)`|
+|`xl`|`(1, twt_size, il_size)`|`(1, 462, 651)`|
+|`ts`|`(1, il_size, xl_size)`|`(1, 651, 951)`|
