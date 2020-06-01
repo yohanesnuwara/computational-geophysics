@@ -155,6 +155,8 @@ The output of this function is `freq_seis` (frequency) and `spec_seis` (amplitud
 
 ## `attribute_3d`
 
+`attribute_3d` is a function to compute various seismic attributes from a given 3D seismic cube input. This function returns two different output options. This option is passed in the input variable `output`, the value is either `2d` or `3d`. `2d` is used if the result we want is a 2D attribute slice, whereas `3d` is used if the result we want is a 3D attribute cube. For `2d` output, we specify which slice type we want to generate by passing the input variable `type`. Values are `il` if we want inline, `xl` for crossline, and `ts` for timeslice. The location of each slice is passed in each input variable `inline_loc`, `xline_loc`, and `timeslice_loc`.
+
 ### Structure of `attribute_3d` function
 
 ```
