@@ -224,4 +224,4 @@ attribute_3d( cube, output='2d', type='il',
 |`EdgeDetection`|`gstdisc`|discontinuity from<br> eigenvalues of GST|`cube`|`kernel=(3,3,9)`|`slice` or `cube`|
 |`EdgeDetection`|`semblance`|semblance|`cube`|`kernel=(3,3,9)`|`slice` or `cube`|
 
-> *) This attribute passes more than one outputs, so when using this attribute, pass different outputs. For instance, for `dipgrad`, use `il_dip, xl_dip = attribute_3d(...)` rather than `result = attribute_3d(...)`
+> *) This attribute passes more than one outputs, so when using this attribute, pass different outputs. For instance, for `dipgrad`, use `il_dip, xl_dip = attribute_3d(...)` rather than `result = attribute_3d(...)`. More on this, see the [**Use**]() section.
