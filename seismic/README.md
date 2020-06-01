@@ -1,12 +1,12 @@
 # Documentation for `seis_package`
 
-`seis_util`<br>
-|_____ `slice_cube`: Slicing a 3D seismic cube into inline, crossline, or timeslice 2D section. Then, display it.<br>
-|_____ `frequency_spectrum`: Computing frequency spectrum of the whole 3D seismic cube, or 2D sections (inline or crossline)<br>
+[`seis_util`](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/README.md#seis_util)<br>
+|_____ [`slice_cube`](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/README.md#slice_cube): Slicing a 3D seismic cube into inline, crossline, or timeslice 2D section. Then, display it.<br>
+|_____ [`frequency_spectrum`](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/README.md#frequency_spectrum): Computing frequency spectrum of the whole 3D seismic cube, or 2D sections (inline or crossline)<br>
 
 `seis_attribute`<br>
-|_____ `attribute_2d`: Computing attribute of a 2D seismic data<br>
-|_____ `attribute_3d`<br>
+|_____ [`attribute_3d`](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/README.md#attribute_3d): Computing attribute of a 2D seismic data<br><br>
+|_____ [`attribute_2d`](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/README.md#attribute_2d): Computing attribute of a 3D seismic cube<br>
 |_____ `display_attribute`: Display into a computed attribute section
 
 # [`segyio_read.py`](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/segyio_read.py) program
