@@ -9,7 +9,7 @@
 |_____ `attribute_3d`<br>
 |_____ `display_attribute`: Display into a computed attribute section
 
-# `segyio_read.py` program
+# [`segyio_read.py`](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/segyio_read.py) program
 
 ```
 Inline range from 100 to 750
@@ -20,6 +20,8 @@ Sample rate: 4.0 ms
 ```
 
 # `seis_util`
+
+`from seis_util import *`
 
 ## `slice_cube`
 
@@ -139,6 +141,8 @@ The output of this function is `freq_seis` (frequency) and `spec_seis` (amplitud
 ![image](https://user-images.githubusercontent.com/51282928/83357640-c2b12580-a397-11ea-9e02-e51e09ed2f51.png)
 
 # `seis_attribute`
+
+`from seis_attribute import *`
 
 ## `attribute_2d`
 
