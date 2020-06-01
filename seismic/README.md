@@ -28,7 +28,13 @@ Sample rate: 4.0 ms
 ### Structure of `slice_cube` function
 
 ```
-def slice_cube(cube, type='il', inline_loc=400, inline_array=inlines, xline_loc=None, xline_array=None, timeslice_loc=None, timeslice_array=None, display='Yes', cmap='gray', figsize=None, vmin=None, vmax=None) 
+attribute_3d( cube, output='2d', type='il', 
+              inline_loc=400, inline_array=None,
+              xline_loc=1000, xline_array=None,
+              timeslice_loc=1404, timeslice_array=None,
+              attribute_class='CompleTrace', 
+              attribute_type='cosphase', kernel=None, sample_rate=4, 
+              dip_factor=10, axis=-1)
 ```
 
 ### Input variables
