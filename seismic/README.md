@@ -1,5 +1,10 @@
 # Documentation for `seis_package`
 
+`module`<br>
+|_____ `function 1`<br>
+|_____ `function 2`<br>
+|_____ `function 3`<br>
+
 [`seis_util`](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/README.md#seis_util)<br>
 |_____ [`slice_cube`](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/README.md#slice_cube): Slicing a 3D seismic cube into inline, crossline, or timeslice 2D section. Then, display it.<br>
 |_____ [`frequency_spectrum`](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/README.md#frequency_spectrum): Computing frequency spectrum of the whole 3D seismic cube, or 2D sections (inline or crossline)<br>
@@ -28,13 +33,11 @@ Sample rate: 4.0 ms
 ### Structure of `slice_cube` function
 
 ```
-attribute_3d( cube, output='2d', type='il', 
-              inline_loc=400, inline_array=None,
-              xline_loc=1000, xline_array=None,
-              timeslice_loc=1404, timeslice_array=None,
-              attribute_class='CompleTrace', 
-              attribute_type='cosphase', kernel=None, sample_rate=4, 
-              dip_factor=10, axis=-1)
+slice_cube(cube, type='il', 
+           inline_loc=400, inline_array=None,
+           xline_loc=None, xline_array=None,
+           timeslice_loc=None, timeslice_array=None,
+           display='Yes', cmap='gray', figsize=None, vmin=None, vmax=None)
 ```
 
 ### Input variables
@@ -150,12 +153,18 @@ The output of this function is `freq_seis` (frequency) and `spec_seis` (amplitud
 
 `from seis_attribute import *`
 
-## `attribute_2d`
+## `attribute_3d`
 
-### Structure of `attribute_2d` function
+### Structure of `attribute_3d` function
 
 ```
-attribute_2d(cube, output='2d', type='il', inline_loc=400, xline_loc=1000, timeslice_loc=1404, attribute_class='CompleTrace', attribute_type='cosphase', **spec=...)
+attribute_3d( cube, output='2d', type='il', 
+              inline_loc=400, inline_array=None,
+              xline_loc=1000, xline_array=None,
+              timeslice_loc=1404, timeslice_array=None,
+              attribute_class='CompleTrace', 
+              attribute_type='cosphase', kernel=None, sample_rate=4, 
+              dip_factor=10, axis=-1)
 ```
 
 ### Input variables
@@ -167,6 +176,9 @@ attribute_2d(cube, output='2d', type='il', inline_loc=400, xline_loc=1000, times
 |`inline_loc`|integer|preferred location of inline, if `type='il'` is chosen||
 |`xline_loc`|integer|preferred location of crossline, if `type='xl'` is chosen||
 |`timeslice_loc`|integer|preferred location of timeslice, if `type='ts'` is chosen||
+|`inline_array`|1D numpy array|array of inline locations<br> output of `segyio.read`||
+|`xline_array`|1D numpy array|array of crossline locations<br> output of `segyio.read`||
+|`timeslice_array`|1D numpy array|array of timeslice locations<br> output of `segyio.read`||
 |`attribute_class`|string|class of attribute|See list below|
 |`attribute_type`|string|type of attribute depends on its class|See list below|
 |`**spec`|any|specified inputs depends on its attribute type|See list below|
