@@ -225,3 +225,22 @@ attribute_3d( cube, output='2d', type='il',
 |`EdgeDetection`|`semblance`|semblance|`cube`|`kernel=(3,3,9)`|`slice` or `cube`|
 
 > *) This attribute passes more than one outputs, so when using this attribute, pass different outputs. For instance, for `dipgrad`, use `il_dip, xl_dip = attribute_3d(...)` rather than `result = attribute_3d(...)`. More on this, see the [**Use**]() section.
+
+### Use
+
+#### Preprocessing your Data
+
+There is a dimension specification for the `cube` input into `attribute_3d` function. The required dimension of the `cube` must be **`(il_size, xl_size, twt_size)`**, where `il_size`, `xl_size`, and `twt_size` are the sizes of the inlines, crosslines, and TWT.
+
+To know the size of your inlines, crosslines, and TWT, you could pass `len(...)` to each inline array `inlines`, crossline array `crosslines`, and TWT array `twt`. You already have these arrays from program [segyio_read](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/segyio_read.py). Then, pass the following.
+
+```
+il_size = len(inlines)
+xl_size = len(crosslines)
+twt_size = len(twt)
+```
+In the Dutch F3 data for instance, `il_size=651`, `xl_size=951`, and `twt_size=462`. So, the dimension of cube is `(651, 951, 462)`.
+
+In other cases for other data, you may encounter after `segyio_read` that the cube dimension is in different order, for instance `(il_size, xl_size, twt_size)`. So, you have to transpose your cube first!
+
+Run `cube.transpose((1,0,2))` to make your `il_size` and `xl_size` to switch, so at the end you will have the right dimension `(il_size, xl_size, twt_size)`.
