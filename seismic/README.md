@@ -155,7 +155,11 @@ The output of this function is `freq_seis` (frequency) and `spec_seis` (amplitud
 
 ## `attribute_3d`
 
-`attribute_3d` is a function to compute various seismic attributes from a given 3D seismic cube input. This function returns two different output options. This option is passed in the input variable `output`, the value is either `2d` or `3d`. `2d` is used if the result we want is a 2D attribute slice, whereas `3d` is used if the result we want is a 3D attribute cube. For `2d` output, we specify which slice type we want to generate by passing the input variable `type`. Values are `il` if we want inline, `xl` for crossline, and `ts` for timeslice. The location of each slice is passed in each input variable `inline_loc`, `xline_loc`, and `timeslice_loc`.
+`attribute_3d` is a function to compute various seismic attributes from a given 3D seismic cube input. 
+
+This function returns two different output options. This option is passed in the input variable `output`, the value is either `2d` or `3d`. `2d` is used if the result we want is a 2D attribute slice, whereas `3d` is used if the result we want is a 3D attribute cube. 
+
+For `2d` output, we specify which slice type we want to generate by passing the input variable `type`. Values are `il` if we want inline, `xl` for crossline, and `ts` for timeslice. The location of each slice is passed in each input variable `inline_loc`, `xline_loc`, and `timeslice_loc`.
 
 ### Structure of `attribute_3d` function
 
@@ -209,13 +213,15 @@ attribute_3d( cube, output='2d', type='il',
 |`CompleTrace`|`resfreq`|response frequency|`cube`|`sample_rate=4`|`slice` or `cube`|
 |`CompleTrace`|`resphase`|response phase|`cube`||`slice` or `cube`|
 |`CompleTrace`|`sweet`|sweetness|`cube`|`sample_rate=4`|`slice` or `cube`|
-|`DipAzm`|`dipgrad`|gradient dips from<br> inline, crossline,<br> and z-gradients|`cube`|`dip_factor=10`,<br> `kernel=(3,3,3)`|`slice` or `cube` <ul> <li>`il_dip`inline dip</li> <li>`xl_dip`crossline dip</li> </ul>|
-|`DipAzm`|`gst`|inner product of<br> gradient structure<br> tensors (GST)|`cube`|`kernel`|`slice` or `cube`<br>inner products of gradient<br>`gi2`, `gj2`, `gk2`,<br> `gigj`, `gigk`, `gjgk`|
-|`DipAzm`|`gstdip2d`|2D gradient dips<br> from GST|`cube`|`dip_factor=10`,<br> `kernel=(3,3,3)`|`slice` or `cube` <ul> <li>`il_dip`inline dip</li> <li>`xl_dip`crossline dip</li> </ul>|
+|`DipAzm`|`dipgrad` *)|gradient dips from<br> inline, crossline,<br> and z-gradients|`cube`|`dip_factor=10`,<br> `kernel=(3,3,3)`|`slice` or `cube` <ul> <li>`il_dip`inline dip</li> <li>`xl_dip`crossline dip</li> </ul>|
+|`DipAzm`|`gst` *)|inner product of<br> gradient structure<br> tensors (GST)|`cube`|`kernel`|`slice` or `cube`<br>inner products of gradient<br>`gi2`, `gj2`, `gk2`,<br> `gigj`, `gigk`, `gjgk`|
+|`DipAzm`|`gstdip2d` *)|2D gradient dips<br> from GST|`cube`|`dip_factor=10`,<br> `kernel=(3,3,3)`|`slice` or `cube` <ul> <li>`il_dip`inline dip</li> <li>`xl_dip`crossline dip</li> </ul>|
 |`DipAzm`|`gstdip3d`|3D gradient dips<br> from GST|`cube`||`slice` or `cube`|
 |`DipAzm`|`gstazm3d`|3D azimuth<br> from GST|`cube`|`dip_factor=10`,<br> `kernel=(3,3,3)`|`slice` or `cube`|
 |`EdgeDetection`|`chaos`|multi-trace chaos|`cube`|`kernel=(3,3,9)`|`slice` or `cube`|
-|`EdgeDetection`|`curv`|volume curvature<br> from 3D seismic dips|`cube`|`dip_factor=10`,<br> `kernel=(3,3,3)`|`slice` or `cube`<br>curvatures<br>`H`, `K`, `Kmax`,<br> `Kmin`, `KMPos`, `KMNeg`|
+|`EdgeDetection`|`curv` *)|volume curvature<br> from 3D seismic dips|`cube`|`dip_factor=10`,<br> `kernel=(3,3,3)`|`slice` or `cube`<br>curvatures<br>`H`, `K`, `Kmax`,<br> `Kmin`, `KMPos`, `KMNeg`|
 |`EdgeDetection`|`eigen`|eigen semblance|`cube`|`kernel=(3,3,9)`|`slice` or `cube`|
 |`EdgeDetection`|`gstdisc`|discontinuity from<br> eigenvalues of GST|`cube`|`kernel=(3,3,9)`|`slice` or `cube`|
 |`EdgeDetection`|`semblance`|semblance|`cube`|`kernel=(3,3,9)`|`slice` or `cube`|
+
+> *) This attribute passes more than one outputs, so when using this attribute, pass different outputs. For instance, for `dipgrad`, use `il_dip, xl_dip = attribute_3d(...)` rather than `result = attribute_3d(...)`
