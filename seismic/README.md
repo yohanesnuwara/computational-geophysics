@@ -255,7 +255,7 @@ Also, you encounter specified input variables `**spec` in each attrubute listed 
 
 For instance, see attribute type `sweetness`. The specified input is `sample_rate`. You may calculate the sampling rate from [`segyio_read`](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/segyio_read.py) method. If you do not specify it, the program will still run with its default value `0.004` in ms. 
 
-Case 1. Create a 2D Sweetness Timeslice at 1404 ms  
+**Example 1. Create a 2D Sweetness Timeslice at 1404 ms**  
 
 ```
 result = attribute_3d(cube=data, output='2d', type='ts', inline_loc=1404, inline_array=inlines, 
