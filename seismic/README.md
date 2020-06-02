@@ -263,6 +263,14 @@ result = attribute_3d(cube=data, output='2d', type='ts', inline_loc=1404, inline
                       sample_rate=0.002)
 ```
 
+**Example 2. Create a 3D  Crossline at 1000**  
+
+```
+result = attribute_3d(cube=data, output='3d', type='ts', inline_loc=1404, inline_array=inlines, 
+                      attribute_class='CompleTrace', attribute_type='sweetness',
+                      sample_rate=0.002)
+```
+
 ### Outputs
 
 |`type`|Dimension|Example: Dutch F3|
