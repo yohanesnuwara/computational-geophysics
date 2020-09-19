@@ -160,8 +160,8 @@ def compute_attribute(cube, output='2d', type='il',
     return(x, darray)
 
 
-  def compute_attribute(x, darray, attribute_class, attribute_type, kernel, 
-                        sample_rate, dip_factor, axis):
+  def compute(x, darray, attribute_class, attribute_type, kernel, 
+              sample_rate, dip_factor, axis):
 
     if attribute_class == 'Amplitude':
 
@@ -338,8 +338,8 @@ def compute_attribute(cube, output='2d', type='il',
     darray = cube
     x, darray = make_dask(darray, output, attribute_class, 
                           attribute_type, kernel)
-    result = compute_attribute(x, cube, attribute_class, attribute_type, kernel, 
-                               sample_rate, dip_factor, axis)   
+    result = compute(x, cube, attribute_class, attribute_type, kernel, 
+                     sample_rate, dip_factor, axis)   
 
   if output == '2d':
 
@@ -354,8 +354,8 @@ def compute_attribute(cube, output='2d', type='il',
 
       x, darray = make_dask(darray, output, attribute_class, 
                             attribute_type, kernel)
-      result = compute_attribute(x, darray, attribute_class, attribute_type, 
-                                 kernel, sample_rate, dip_factor, axis)
+      result = compute(x, darray, attribute_class, attribute_type, 
+                       kernel, sample_rate, dip_factor, axis)
 
     if type == 'xl':
       slices = slice_cube(cube, type, xline_loc, xline_array, display='No')
@@ -364,8 +364,8 @@ def compute_attribute(cube, output='2d', type='il',
 
       x, darray = make_dask(darray, output, attribute_class, 
                             attribute_type, kernel)
-      result = compute_attribute(x, darray, attribute_class, attribute_type, 
-                                 kernel, sample_rate, dip_factor, axis)
+      result = compute(x, darray, attribute_class, attribute_type, 
+                       kernel, sample_rate, dip_factor, axis)
 
     if type == 'ts':
       slices = slice_cube(cube, type, 
@@ -378,8 +378,8 @@ def compute_attribute(cube, output='2d', type='il',
 
       x, darray = make_dask(darray, output, attribute_class, 
                             attribute_type, kernel)
-      result = compute_attribute(x, darray, attribute_class, attribute_type, 
-                                 kernel, sample_rate, dip_factor, axis)
+      result = compute(x, darray, attribute_class, attribute_type, 
+                       kernel, sample_rate, dip_factor, axis)
   
   return result
   
