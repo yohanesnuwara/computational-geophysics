@@ -1,10 +1,17 @@
-def attribute_3d(cube, output='2d', type='il', 
-                 inline_loc=400, inline_array=None,
-                 xline_loc=1000, xline_array=None,
-                 timeslice_loc=1404, timeslice_array=None,
-                 attribute_class='CompleTrace', 
-                 attribute_type='cosphase', kernel=None, sample_rate=4, 
-                 dip_factor=10, axis=-1):
+"""
+User Interface to Calculate and Display Seismic Attribute Section
+
+@author: Yohanes Nuwara
+@email: ign.nuwara97@gmail.com
+"""
+
+def attribute(cube, output='2d', type='il', 
+              inline_loc=400, inline_array=None,
+              xline_loc=1000, xline_array=None,
+              timeslice_loc=1404, timeslice_array=None,
+              attribute_class='CompleTrace', 
+              attribute_type='cosphase', kernel=None, sample_rate=4, 
+              dip_factor=10, axis=-1):
   """
   Computing attribute of a 3D cube, output a 2D attribute slice 
   (Copyright, Y. Nuwara, ign.nuwara97@gmail.com)
@@ -106,41 +113,49 @@ def attribute_3d(cube, output='2d', type='il',
 
       if attribute_class == 'Amplitude':
         x = SignalProcess()
-        darray, chunks_init = SignalProcess.create_array(x, darray, kernel, preview=None)
+        darray, chunks_init = SignalProcess.create_array(x, darray, kernel, 
+                                                         preview=None)
         darray = darray.T
 
       if attribute_class == 'CompleTrace':  
         x = ComplexAttributes()
-        darray, chunks_init = ComplexAttributes.create_array(x, darray, kernel, preview=None)
+        darray, chunks_init = ComplexAttributes.create_array(x, darray, kernel, 
+                                                             preview=None)
         darray = darray.T 
 
       if attribute_class == 'DipAzm':
         x = DipAzm()
-        darray, chunks_init = DipAzm.create_array(x, darray, kernel=None, preview=None)
+        darray, chunks_init = DipAzm.create_array(x, darray, kernel=None, 
+                                                  preview=None)
         darray = darray.T
       
       if attribute_class == 'EdgeDetection':  
         x = EdgeDetection()
-        darray, chunks_init = EdgeDetection.create_array(x, darray, kernel, preview=None)
+        darray, chunks_init = EdgeDetection.create_array(x, darray, kernel, 
+                                                         preview=None)
         darray = darray.T      
 
     if output == '3d':
 
       if attribute_class == 'Amplitude':
         x = SignalProcess()
-        darray, chunks_init = SignalProcess.create_array(x, darray, kernel, preview=None)
+        darray, chunks_init = SignalProcess.create_array(x, darray, kernel, 
+                                                         preview=None)
 
       if attribute_class == 'CompleTrace':  
         x = ComplexAttributes()
-        darray, chunks_init = ComplexAttributes.create_array(x, darray, kernel, preview=None)
+        darray, chunks_init = ComplexAttributes.create_array(x, darray, kernel, 
+                                                             preview=None)
 
       if attribute_class == 'DipAzm':
         x = DipAzm()
-        darray, chunks_init = DipAzm.create_array(x, darray, kernel=None, preview=None)
+        darray, chunks_init = DipAzm.create_array(x, darray, kernel=None, 
+                                                  preview=None)
       
       if attribute_class == 'EdgeDetection':  
         x = EdgeDetection()
-        darray, chunks_init = EdgeDetection.create_array(x, darray, kernel, preview=None)
+        darray, chunks_init = EdgeDetection.create_array(x, darray, kernel, 
+                                                         preview=None)
 
     return(x, darray)
 
@@ -151,23 +166,28 @@ def attribute_3d(cube, output='2d', type='il',
     if attribute_class == 'Amplitude':
 
       if attribute_type == 'fder':
-        result = SignalProcess.first_derivative(x, darray, axis=-1, preview=None)
+        result = SignalProcess.first_derivative(x, darray, axis=-1, 
+                                                preview=None)
         return(result)
       
       if attribute_type == 'sder':
-        result = SignalProcess.second_derivative(x, darray, axis=-1, preview=None)
+        result = SignalProcess.second_derivative(x, darray, axis=-1, 
+                                                 preview=None)
         return(result)
 
       if attribute_type == 'rms':
-        result = SignalProcess.rms(x, darray, kernel=(1,1,9), preview=None)
+        result = SignalProcess.rms(x, darray, kernel=(1,1,9), 
+                                   preview=None)
         return(result)
 
       if attribute_type == 'gradmag':
-        result = SignalProcess.gradient_magnitude(x, darray, sigmas=(1,1,1), preview=None)
+        result = SignalProcess.gradient_magnitude(x, darray, sigmas=(1,1,1), 
+                                                  preview=None)
         return(result)
 
       if attribute_type == 'reflin':
-        result = SignalProcess.reflection_intensity(x, darray, kernel=(1,1,9), preview=None)
+        result = SignalProcess.reflection_intensity(x, darray, kernel=(1,1,9), 
+                                                    preview=None)
         return(result)
 
     if attribute_class == 'CompleTrace':  
@@ -181,39 +201,49 @@ def attribute_3d(cube, output='2d', type='il',
         return(result)
 
       if attribute_type == 'cosphase':
-        result = ComplexAttributes.cosine_instantaneous_phase(x, darray, preview=None)   
+        result = ComplexAttributes.cosine_instantaneous_phase(x, darray, 
+                                                              preview=None)   
         return(result)
 
       if attribute_type == 'ampcontrast':
-        result = ComplexAttributes.relative_amplitude_change(x, darray, preview=None)
+        result = ComplexAttributes.relative_amplitude_change(x, darray, 
+                                                             preview=None)
         return(result)
 
       if attribute_type == 'ampacc':
-        result = ComplexAttributes.amplitude_acceleration(x, darray, preview=None)
+        result = ComplexAttributes.amplitude_acceleration(x, darray, 
+                                                          preview=None)
         return(result)
 
       if attribute_type == 'infreq':
-        result = ComplexAttributes.instantaneous_frequency(x, darray, sample_rate=4, preview=None)
+        result = ComplexAttributes.instantaneous_frequency(x, darray, 
+                                                           sample_rate=4, 
+                                                           preview=None)
         return(result)
 
       if attribute_type == 'inband':
-        result = ComplexAttributes.instantaneous_bandwidth(x, darray, preview=None)
+        result = ComplexAttributes.instantaneous_bandwidth(x, darray, 
+                                                           preview=None)
         return(result)
 
       if attribute_type == 'domfreq':
-        result = ComplexAttributes.dominant_frequency(x, darray, sample_rate=4, preview=None)
+        result = ComplexAttributes.dominant_frequency(x, darray, sample_rate=4, 
+                                                      preview=None)
         return(result)
 
       if attribute_type == 'freqcontrast':
-        result = ComplexAttributes.dominant_frequency(x, darray, sample_rate=4, preview=None)
+        result = ComplexAttributes.dominant_frequency(x, darray, sample_rate=4, 
+                                                      preview=None)
         return(result)
 
       if attribute_type == 'sweet':
-        result = ComplexAttributes.sweetness(x, darray, sample_rate=4, preview=None)
+        result = ComplexAttributes.sweetness(x, darray, sample_rate=4, 
+                                             preview=None)
         return(result)
 
       if attribute_type == 'quality':
-        result = ComplexAttributes.quality_factor(x, darray, sample_rate=4, preview=None)
+        result = ComplexAttributes.quality_factor(x, darray, sample_rate=4, 
+                                                  preview=None)
         return(result)
 
       if attribute_type == 'resphase':
@@ -221,7 +251,8 @@ def attribute_3d(cube, output='2d', type='il',
         return(result)
 
       if attribute_type == 'resfreq':
-        result = ComplexAttributes.response_frequency(x, darray, sample_rate=4, preview=None)
+        result = ComplexAttributes.response_frequency(x, darray, sample_rate=4, 
+                                                      preview=None)
         return(result) 
 
       if attribute_type == 'resamp':
@@ -235,50 +266,64 @@ def attribute_3d(cube, output='2d', type='il',
     if attribute_class == 'DipAzm':
 
       if attribute_type == 'dipgrad':
-        result = DipAzm.gradient_dips(x, darray, dip_factor=10, kernel=(3,3,3), preview=None)
+        result = DipAzm.gradient_dips(x, darray, dip_factor=10, kernel=(3,3,3), 
+                                      preview=None)
         return(result) # result is il_dip, xl_dip
 
       if attribute_type == 'gst':
-        result = DipAzm.gradient_structure_tensor(x, darray, kernel, preview=None)
+        result = DipAzm.gradient_structure_tensor(x, darray, kernel, 
+                                                  preview=None)
         return(result) # result is gi2, gj2, gk2, gigj, gigk, gjgk
       
       if attribute_type == 'gstdip2d':
-        result = DipAzm.gst_2D_dips(x, darray, dip_factor=10, kernel=(3,3,3), preview=None)
+        result = DipAzm.gst_2D_dips(x, darray, dip_factor=10, kernel=(3,3,3), 
+                                    preview=None)
         return(result) # result is il_dip, xl_dip
 
       if attribute_type == 'gstdip3d':
-        result = DipAzm.gst_3D_dip(x, darray, dip_factor=10, kernel=(3,3,3), preview=None)
+        result = DipAzm.gst_3D_dip(x, darray, dip_factor=10, kernel=(3,3,3), 
+                                   preview=None)
         return(result)
 
       if attribute_type == 'gstazm3d':
-        result = DipAzm.gst_3D_azm(x, darray, dip_factor=10, kernel=(3,3,3), preview=None)
+        result = DipAzm.gst_3D_azm(x, darray, dip_factor=10, kernel=(3,3,3), 
+                                   preview=None)
         return(result)
 
 
     if attribute_class == 'EdgeDetection':  
 
       if attribute_type == 'semblance':
-        result = EdgeDetection.semblance(x, darray, kernel=(3,3,9), preview=None)
+        result = EdgeDetection.semblance(x, darray, kernel=(3,3,9), 
+                                         preview=None)
         return(result)
 
       if attribute_type == 'gstdisc':
-        result = EdgeDetection.gradient_structure_tensor(x, darray, kernel=(3,3,9), preview=None)
+        result = EdgeDetection.gradient_structure_tensor(x, darray, 
+                                                         kernel=(3,3,9), 
+                                                         preview=None)
         return(result)
 
       if attribute_type == 'eigen':
-        result = EdgeDetection.eig_complex(x, darray, kernel=(3,3,9), preview=None)
+        result = EdgeDetection.eig_complex(x, darray, kernel=(3,3,9), 
+                                           preview=None)
         return(result)
 
       if attribute_type == 'chaos':
-        result = EdgeDetection.chaos(x, darray, kernel=(3,3,9), preview=None)
+        result = EdgeDetection.chaos(x, darray, kernel=(3,3,9), 
+                                     preview=None)
         return(result)
 
       if attribute_type == 'curv':
         # compute first inline and xline dips from gst
         x = DipAzm()
-        darray_il, darray_xl = DipAzm.gradient_dips(x, darray, dip_factor=10, kernel=(3,3,3), preview=None)
+        darray_il, darray_xl = DipAzm.gradient_dips(x, darray, dip_factor=10, 
+                                                    kernel=(3,3,3), 
+                                                    preview=None)
         # compute curvature
-        result = EdgeDetection.volume_curvature(x, darray_il, darray_xl, dip_factor=10, kernel=(3,3,3), 
+        result = EdgeDetection.volume_curvature(x, darray_il, darray_xl, 
+                                                dip_factor=10, 
+                                                kernel=(3,3,3), 
                                                 preview=None) 
         return(result) # result is H, K, Kmax, Kmin, KMPos, KMNeg
   
@@ -291,8 +336,10 @@ def attribute_3d(cube, output='2d', type='il',
     # 3D cube is directly as input to compute attribute function
 
     darray = cube
-    x, darray = make_dask(darray, output, attribute_class, attribute_type, kernel)
-    result = compute_attribute(x, cube, attribute_class, attribute_type, kernel, sample_rate, dip_factor, axis)   
+    x, darray = make_dask(darray, output, attribute_class, 
+                          attribute_type, kernel)
+    result = compute_attribute(x, cube, attribute_class, attribute_type, kernel, 
+                               sample_rate, dip_factor, axis)   
 
   if output == '2d':
 
@@ -305,26 +352,36 @@ def attribute_3d(cube, output='2d', type='il',
 
       darray = np.reshape(slices, slices.shape + (1,))
 
-      x, darray = make_dask(darray, output, attribute_class, attribute_type, kernel)
-      result = compute_attribute(x, darray, attribute_class, attribute_type, kernel, sample_rate, dip_factor, axis)
+      x, darray = make_dask(darray, output, attribute_class, 
+                            attribute_type, kernel)
+      result = compute_attribute(x, darray, attribute_class, attribute_type, 
+                                 kernel, sample_rate, dip_factor, axis)
 
     if type == 'xl':
       slices = slice_cube(cube, type, xline_loc, xline_array, display='No')
 
       darray = np.reshape(slices, slices.shape + (1,))  
 
-      x, darray = make_dask(darray, output, attribute_class, attribute_type, kernel)
-      result = compute_attribute(x, darray, attribute_class, attribute_type, kernel, sample_rate, dip_factor, axis)
+      x, darray = make_dask(darray, output, attribute_class, 
+                            attribute_type, kernel)
+      result = compute_attribute(x, darray, attribute_class, attribute_type, 
+                                 kernel, sample_rate, dip_factor, axis)
 
     if type == 'ts':
-      slices = slice_cube(cube, type, timeslice_loc, timeslice_array, display='No')
+      slices = slice_cube(cube, type, 
+                          timeslice_loc=timeslice_loc, 
+                          timeslice_array=timeslice_array, 
+                          display='No')
 
-      darray = np.reshape(np.transpose(slices), (np.transpose(slices)).shape + (1,))
+      darray = np.reshape(np.transpose(slices), 
+                          (np.transpose(slices)).shape + (1,))
 
-      x, darray = make_dask(darray, output, attribute_class, attribute_type, kernel)
-      result = compute_attribute(x, darray, attribute_class, attribute_type, kernel, sample_rate, dip_factor, axis)
+      x, darray = make_dask(darray, output, attribute_class, 
+                            attribute_type, kernel)
+      result = compute_attribute(x, darray, attribute_class, attribute_type, 
+                                 kernel, sample_rate, dip_factor, axis)
   
-  return(result)
+  return result
   
 def display_attribute(computed_attribute, type, b_line, c_line, cmap, vmin, vmax):
   """
