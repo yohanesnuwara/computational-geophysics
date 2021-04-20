@@ -1,10 +1,10 @@
 # computational-geophysics
 
-**Python implementations on geophysical methods**
-
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://licensebuttons.net/l/by-nc-sa/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+**Python implementations on some geophysical methods**
 
 ## Gravity 
+
+Regional and residual anomaly separation from Complete Bouguer Anomaly (CBA) using 1D Fast Fourier Transform (FFT) and 2D Second Vertical Derivative (SVD)
 
 <div>
 <img src="https://user-images.githubusercontent.com/51282928/77532985-932dfa80-6ec8-11ea-9e04-b39ba5536487.PNG" width="800"/>
@@ -12,9 +12,13 @@
 
 ## Seismic
 
+Development of [SeisTool](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/README.md), a Python utilities collection for seismic data processing, attributes calculation, and inversion
+
 <div>
 <img src="https://user-images.githubusercontent.com/51282928/115356419-d6e75680-a1e5-11eb-8b06-404c99494957.png" width="800"/>
 </div>
+
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://licensebuttons.net/l/by-nc-sa/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
 <!--
 
@@ -51,8 +55,6 @@ Data: [Roosevelt Hotsprings Geothermal USA from open-source USGS data](https://g
 <div>
 <img src="https://user-images.githubusercontent.com/51282928/77532985-932dfa80-6ec8-11ea-9e04-b39ba5536487.PNG" width="800"/>
 </div>
-
-<!--
 
 ## Seismic
 
