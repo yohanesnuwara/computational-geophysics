@@ -1,10 +1,26 @@
 # computational-geophysics
 
-**All geophysics method: gravity, magnetic, seismic, electrical, electromagnetic**
+**Python implementations on geophysical methods**
 
 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://licensebuttons.net/l/by-nc-sa/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
 ## Gravity 
+
+<div>
+<img src="https://user-images.githubusercontent.com/51282928/77532985-932dfa80-6ec8-11ea-9e04-b39ba5536487.PNG" width="800"/>
+</div>
+
+## Seismic
+
+<div>
+<img src="https://user-images.githubusercontent.com/51282928/115356419-d6e75680-a1e5-11eb-8b06-404c99494957.png" width="800"/>
+</div>
+
+<!--
+
+<div>
+<img src="https://user-images.githubusercontent.com/51282928/77532985-932dfa80-6ec8-11ea-9e04-b39ba5536487.PNG" width="800"/>
+</div>
 
 ### [See here](https://github.com/yohanesnuwara/computational-geophysics/tree/master/gravity)
 
