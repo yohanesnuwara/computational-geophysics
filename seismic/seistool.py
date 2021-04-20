@@ -72,7 +72,7 @@ def sliceViewer(cube, cube_name=" "):
   xline_loc = widgets.IntSlider(value=min(crosslines), min=min(crosslines), 
                                 max=max(crosslines))
   timeslice_loc = widgets.FloatSlider(value=min(twt), min=min(twt), 
-                                      max=max(inlines), step=sample_rate)
+                                      max=max(twt), step=sample_rate)
   vmin = widgets.FloatSlider(value=np.amin(data), min=np.amin(data), 
                              max=np.amax(data))
   vmax = widgets.FloatSlider(value=np.amax(data), min=np.amin(data), 
