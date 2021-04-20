@@ -36,6 +36,8 @@ Data: [Roosevelt Hotsprings Geothermal USA from open-source USGS data](https://g
 <img src="https://user-images.githubusercontent.com/51282928/77532985-932dfa80-6ec8-11ea-9e04-b39ba5536487.PNG" width="800"/>
 </div>
 
+<!--
+
 ## Seismic
 
 ### [`seis_util`](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/seis_util.py): Library for basic processing of seismic data. See [Notebook](https://github.com/yohanesnuwara/computational-geophysics/blob/master/seismic/seis_util.ipynb)
