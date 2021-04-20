@@ -1,3 +1,9 @@
+# SeisTool
+
+Python utilities for seismic data processing, attribute calculation, and inversion. 
+
+<!--
+
 # Documentation for `seis_package`
 
 `module`<br>
