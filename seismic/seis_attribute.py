@@ -91,7 +91,7 @@ def sliceAttribute(cube, output='2d', type='il',
   import numpy as np
   import segyio
 
-  from seis_util import slice_cube
+  from seistool import sliceCube
 
   from CompleTrace import ComplexAttributes
   from DipAzm import DipAzm
