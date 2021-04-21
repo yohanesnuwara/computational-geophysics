@@ -45,10 +45,127 @@ def openSegy3D(filename):
 
   return cube 
 
+def sliceCube(cube, type='il', 
+              inline_loc=400, 
+              xline_loc=None, 
+              timeslice_loc=None, 
+              display=False, 
+              cmap='gray', figsize=None, vmin=None, vmax=None):
+  
+  """
+  Slicing 3D seismic cube into 2D slice, and display it (optional)
+  
+  NOTE: Static display. If you want interactive display, use: sliceViewer
+
+  INPUT:
+
+  cube: 3D seismic output of openSegy3D
+
+  type: specify the type of slice
+    * 'il' for inline
+    * 'xl' for crossline
+    * 'ts' for timeslice)
+
+  inline_loc: preferred location of inline, if you specify type='il', 
+              no need to input xline_loc, timeslice_loc
+
+  xline_loc: preferred location of crossline, if you specify type='xl', 
+             no need to input inline_loc, timeslice_loc
+
+  timeslice_loc: preferred location of timeslice, if you specify type='ts', 
+                 no need to input inline_loc, xline_loc
+
+  display: Display option. Default is False
+    * False : Your output is the slice (2D numpy array).
+    * True  : Your output is plot of the slice.
+
+  If your display=True, configure the display details:
+    * cmap: Matplotlib colormaps. 
+    * figsize: figure size (2-size tuple)
+    * vmin: lowest limit for colormap 
+    * vmax: upper limit for colormap 
+
+  OUTPUT:
+
+  slice : 2D numpy array,  if display=True is specified
+  plot  : Seismic display, if display=False is specified
+  """
+
+  import numpy as np
+  import matplotlib.pyplot as plt
+
+  # Unwrap cube
+  inline_array, xline_array, timeslice_array = cube.inlines, cube.crosslines, cube.twt
+  cube = cube.data
+
+  if type == 'il':
+    id = np.where(inline_array == inline_loc)[0][0]
+    inline_slice = cube[id,:,:]
+    
+    if display == False:
+      return(inline_slice)
+        
+    if display == True:
+      plt.figure(figsize=figsize)
+      plt.title('Inline {}'.format(inline_loc), size=20, pad=20)
+      extent = [xline_array[0], xline_array[-1], timeslice_array[-1], timeslice_array[0]]
+
+      p1 = plt.imshow(inline_slice.T, cmap=cmap, aspect='auto', extent=extent,
+                      vmin=vmin, vmax=vmax)
+
+      plt.colorbar()
+      plt.xlabel('Crossline', size=15); plt.ylabel('TWT', size=15)
+      plt.show()
+
+  if type == 'xl':
+
+    id = np.where(xline_array == xline_loc)[0][0]
+    xline_slice = cube[:,id,:]
+
+    if display == False:
+      return(xline_slice)
+    
+    if display == True:
+      plt.figure(figsize=figsize)
+      plt.title('Crossline {}'.format(xline_loc), size=20, pad=20)
+      extent = [inline_array[0], inline_array[-1], timeslice_array[-1], timeslice_array[0]]
+
+      p1 = plt.imshow(xline_slice.T, cmap=cmap, aspect='auto', extent=extent, 
+                      vmin=vmin, vmax=vmax)
+
+      plt.colorbar()
+      plt.xlabel('Inline', size=15); plt.ylabel('TWT', size=15)
+      plt.show()
+  
+  if type == 'ts':
+
+    id = np.where(timeslice_array == timeslice_loc)[0][0]
+    tslice = cube[:,:,id]
+
+    if display == False:
+      return(tslice)
+
+    if display == True:
+
+      plt.figure(figsize=figsize)
+      plt.title('Timeslice {} ms'.format(timeslice_loc), size=20, pad=20)
+      extent = [inline_array[0], inline_array[-1], xline_array[-1], xline_array[0]]
+
+      p1 = plt.imshow(tslice.T, cmap=cmap, aspect='auto', extent=extent, 
+                      vmin=vmin, vmax=vmax)
+
+      plt.colorbar()
+      plt.xlabel('Inline', size=15); plt.ylabel('Crossline', size=15)
+      plt.xlim(min(inline_array), max(inline_array))
+      plt.ylim(min(xline_array), max(xline_array))
+      plt.axis('equal')
+      plt.show()  
+
 def sliceViewer(cube, cube_name=" "):
   """
   Interactive viewer of 2D slice from a 3D seismic volume data
 
+  NOTE: Interactive display. If you want static display, use: sliceCube
 
   """
   from ipywidgets import interact, interactive, fixed, interact_manual, ToggleButtons
