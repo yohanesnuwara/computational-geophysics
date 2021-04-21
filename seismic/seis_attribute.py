@@ -808,46 +808,51 @@ def sliceAttribute(cube, output='2d', type='il',
   
 #   return result
   
-def display_attribute(computed_attribute, type, b_line, c_line, cmap, vmin, vmax):
+def display_attribute(computed_attribute, type, cube, cmap='plasma', vmin=None, vmax=None):
   """
-  Processing the output from d2geo attribute for matplotlib display
-  (Copyright, Y. Nuwara, ign.nuwara97@gmail.com)
+  Display attribute result
 
-  Input:
+  INPUT:
 
   computed_attribute: output from the attribute computation (3D Dask array)
+  
   type: 'il' for inline, 'xl' for crossline, 'ts' for timeslice
-
-  b_line, c_line: array of inline, crossline, and timeslice, depends on the 
-                  type you're choosing (1D numpy array)
-  * for 'il': b_line = crossline array, c_line = twt array
-  * for 'xl': b_line = inline array, c_line = twt array
-  * for 'ts': b_line = inline array, c_line = crossline array
 
   cmap: matplotlib pyplot colormaps ('gray', 'RdBu', 'seismic', 
         jet, Accent, ...)
+        
   vmin, vmax: the minimum and maximum range for colormap. Many options:
   * None, None: normal and default plotting
   * specified vmin, vmax (e.g. vmin = 0, vmax = 1000)
   * vmin = -percentile99, vmax = +percentile99, percentiles of the cube
-
-  Output:
-
-  attribute_slice: 2D Numpy array
   """
 
   import numpy as np
   import matplotlib.pyplot as plt
+  
+  # Unwrap cube
+  inline_array, xline_array, twt_array = cube.inlines, cube.crosslines, cube.twt
 
-  if type == 'il' or type == 'xl':
+  if type == 'il':
+    b_line, c_line = xline_array, twt_array 
     trans_attr = computed_attribute.T
     reshape = trans_attr.reshape((trans_attr.shape[0], -1))
 
     extent = [b_line[0], b_line[-1], c_line[-1], c_line[0]]
     p1 = plt.imshow(reshape.T, vmin=vmin, vmax=vmax, aspect='auto', extent=extent, cmap=cmap)
     plt.colorbar(p1)
+    
+  if type == 'xl':
+    b_line, c_line = inline_array, twt_array     
+    trans_attr = computed_attribute.T
+    reshape = trans_attr.reshape((trans_attr.shape[0], -1))
+
+    extent = [b_line[0], b_line[-1], c_line[-1], c_line[0]]
+    p1 = plt.imshow(reshape.T, vmin=vmin, vmax=vmax, aspect='auto', extent=extent, cmap=cmap)
+    plt.colorbar(p1)    
 
   if type == 'ts':
+    b_line, c_line = inline_array, xline_array   
     trans_attr = computed_attribute.T
     reshape = trans_attr.reshape((trans_attr.shape[0], -1))
 
