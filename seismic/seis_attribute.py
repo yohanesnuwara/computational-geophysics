@@ -89,6 +89,7 @@ def sliceAttribute(cube, output='2d', type='il',
   """
 
   import numpy as np
+  import matplotlib.pyplot as plt
   import segyio
 
   from seistool import sliceCube
