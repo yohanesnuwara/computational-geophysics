@@ -808,7 +808,7 @@ def sliceAttribute(cube, output='2d', type='il',
   
 #   return result
   
-def display_attribute(computed_attribute, type, cube, cmap='plasma', vmin=None, vmax=None):
+def display_attribute(computed_attribute, cube, type, cmap='plasma', vmin=None, vmax=None):
   """
   Display attribute result
 
