@@ -2,6 +2,9 @@
 
 Python utilities for seismic data processing, attribute calculation, and inversion. 
 
+* Reading 3D seismic data, static viewer, and interactive viewer with `seistool.openSegy3D`, `seistool.sliceCube`, and `seistool.sliceViewer`. 
+* Seismic attribute calculation with `seistool.sliceAttribute`.
+
 <!--
 
 # Documentation for `seis_package`
