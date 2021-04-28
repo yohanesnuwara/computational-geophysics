@@ -729,3 +729,88 @@ def plot2D(computed_attribute, cube, type, cmap='plasma', vmin=None, vmax=None):
     extent = [b_line[0], b_line[-1], c_line[-1], c_line[0]]
     p1 = plt.imshow(reshape, vmin=vmin, vmax=vmax, aspect='auto', extent=extent, cmap=cmap)
     plt.colorbar(p1)            
+
+
+def sliceFluidFactor(near_cube, far_cube, type='il', 
+                     inline_loc=400, 
+                     xline_loc=1000, 
+                     timeslice_loc=1404, 
+                     crossplot=False):
+  """
+  Calculate Fluid Factor using Approximation on Near-Far Stack
+
+  INPUT:
+
+  near_cube, far_cube: Near and far stack cubes
+
+  type: specify the type of slice
+    * 'il' for inline
+    * 'xl' for crossline
+    * 'ts' for timeslice
+
+  inline_loc: preferred location of inline, if you specify type='il', 
+              no need to input xline_loc, timeslice_loc
+
+  xline_loc: preferred location of crossline, if you specify type='xl', 
+             no need to input inline_loc, timeslice_loc
+
+  timeslice_loc: preferred location of timeslice, if you specify type='ts', 
+                 no need to input inline_loc, xline_loc  
+  
+  crossplot: Option to display result of (Far-Near) vs. Near crossplot with
+             regressed line
+    * Default is False: No crossplot is shown. Numerical results are shown.
+    * Specify as True: Crossplot is shown.
+  
+  OUTPUT:
+
+  By default, the following output is produced (crossplot=False):
+    * FF: Calculated Fluid Factor slice
+  
+  If "crossplot=True", crossplot display is produced.
+  """
+  from sklearn.linear_model import LinearRegression
+  import matplotlib.pyplot as plt
+
+  # Slice cube
+  if type=='il':
+    sliceNear = sliceCube(near_cube, type, inline_loc=inline_loc)
+    sliceFar = sliceCube(far_cube, type, inline_loc=inline_loc)
+  if type=='xl':  
+    sliceNear = sliceCube(near_cube, type, xline_loc=xline_loc)
+    sliceFar = sliceCube(far_cube, type, xline_loc=xline_loc)    
+  if type=='ts':
+    sliceNear = sliceCube(near_cube, type, timeslice_loc=timeslice_loc)
+    sliceFar = sliceCube(far_cube, type, timeslice_loc=timeslice_loc)
+
+  # Calculate FF
+  near_data, far_data = np.ndarray.flatten(sliceNear), np.ndarray.flatten(sliceFar)
+  diff = far_data - near_data       
+
+  lr = LinearRegression(fit_intercept=False, normalize=False, copy_X=True, n_jobs=1)
+  lr.fit(near_data.reshape(-1,1), diff.reshape(-1,1))
+  coef = lr.coef_[0]
+  R2 = lr.score(near_data.reshape(-1,1), diff.reshape(-1,1))
+
+  if crossplot==True:
+    plt.figure(figsize=(7,7))
+
+    # Crossplot (Far-Near) vs Near
+    plt.scatter(near_data, diff, color='blue', alpha=0.5)  
+
+    # Regressed line
+    xmin, xmax = min(near_data), max(near_data)
+    x = np.linspace(xmin, xmax, 10)
+    y = coef * x
+    plt.plot(x, y, color='red', label="coef: {:.3f} \n $R^2$: {:.3f}".format(coef[0], R2))
+
+    plt.legend(fontsize=12)
+    plt.xlabel("Near Amplitude", size=12)
+    plt.ylabel("Far-Near Amplitude Difference", size=12)
+    plt.title("Fluid Factor Crossplot", size=20, pad=10)
+    plt.gca().set_aspect('equal') 
+
+  if crossplot==False:
+    diff = sliceFar - sliceNear
+    FF = diff - coef[0] * sliceNear
+    return FF    
