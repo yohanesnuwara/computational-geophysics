@@ -771,6 +771,7 @@ def sliceFluidFactor(near_cube, far_cube, type='il',
   """
   from sklearn.linear_model import LinearRegression
   import matplotlib.pyplot as plt
+  import numpy as np
 
   # Slice cube
   if type=='il':
