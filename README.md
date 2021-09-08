@@ -1,4 +1,4 @@
-# computational-geophysics
+# Computational Geophysics Sandbox
 
 **Python implementations on some geophysical methods**
 
