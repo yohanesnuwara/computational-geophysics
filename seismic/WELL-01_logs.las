@@ -30,7 +30,7 @@
  RHOB     .g/cc               : 3     Name = Density_1 - Type = Density
  GR       .gapi               : 4     Name = Gamma Ray_1 - Type = Gamma Ray
  NPHI     .ft3/ft3            : 5     Name = Neutron Porosity_1 - Type = Neutron Porosity
- UNKNOWN  .ft3/ft3            : 6     Name = Porosity_total_1 - Type = Porosity
+ PHIT	  .ft3/ft3            : 6     Name = Porosity_total_1 - Type = Porosity
  DT       .us/ft              : 7     Name = P-wave_1 - Type = P-wave
 ~A (ASCII LOG DATA)
   100.0000        711.0500       -999.2500       -999.2500       -999.2500       -999.2500       -999.2500
