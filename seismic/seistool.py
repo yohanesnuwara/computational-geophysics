@@ -1,3 +1,8 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import segyio
+
 def openSegy3D(filename, iline=189, xline=193):
   """
   Open 3D seismic volume in SEGY or SGY format 
@@ -6,8 +11,6 @@ def openSegy3D(filename, iline=189, xline=193):
         If it returns "openSegy3D cannot read the data", change iline and xline
         Usually, specifying iline=5, xline=21 works
   """
-  import segyio
-
   try:
     with segyio.open(filename) as f:
 
@@ -134,6 +137,92 @@ def openSegy3D(filename, iline=189, xline=193):
 #     print("openSegy cannot read your data")  
 
 #   return cube 
+
+def parseHeader(filename):
+  """
+  Parse header of a SEGY seismic volume
+  """
+  import segyio
+  import re
+  import pandas as pd
+
+  def parse_trace_headers(segyfile, n_traces):
+      '''
+      Parse the segy file trace headers into a pandas dataframe.
+      Column names are defined from segyio internal tracefield
+      One row per trace
+      '''
+      # Get all header keys
+      headers = segyio.tracefield.keys
+      # Initialize dataframe with trace id as index and headers as columns
+      df = pd.DataFrame(index=range(1, n_traces + 1),
+                        columns=headers.keys())
+      # Fill dataframe with all header values
+      for k, v in headers.items():
+          df[k] = segyfile.attributes(v)[:]
+      return df
+
+
+  def parse_text_header(segyfile):
+      '''
+      Format segy text header into a readable, clean dict
+      '''
+      raw_header = segyio.tools.wrap(segyfile.text[0])
+      # Cut on C*int pattern
+      cut_header = re.split(r'C ', raw_header)[1::]
+      # Remove end of line return
+      text_header = [x.replace('\n', ' ') for x in cut_header]
+      text_header[-1] = text_header[-1][:-2]
+      # Format in dict
+      clean_header = {}
+      i = 1
+      for item in text_header:
+          key = "C" + str(i).rjust(2, '0')
+          i += 1
+          clean_header[key] = item
+      return clean_header  
+
+  
+  with segyio.open(filename, iline=5, xline=21) as f:  
+    # Load headers
+    n_traces = f.tracecount    
+    bin_headers = f.bin
+    text_headers = parse_text_header(f)
+    trace_headers = parse_trace_headers(f, n_traces)
+
+  return trace_headers 
+
+# Function to get byte number of a given trace key
+def get_byte(key_name):
+  header = segyio.tracefield.keys
+  return header[key_name]
+
+def cube_constructor(data, inlines, crosslines, twt):
+  """
+  Convert seismic cube data to cube object
+
+  INPUT:
+
+  data: Cube data (3D array)
+  inlines: List of inline numbers
+  crosslines: List of crossline numbers
+  twt: List of TWT
+  NOTE: size of inlines, crosslines, twt must match shape of data
+
+  OUTPUT:
+
+  cube: Python object with attributes .data, .inlines, .crosslines, .twt
+  """
+  cube = dict({"data": data,
+                "inlines": inlines,
+                "crosslines": crosslines,
+                "twt": twt})
+  class AttrDict(dict):
+    def __init__(self, *args, **kwargs):
+        super(AttrDict, self).__init__(*args, **kwargs)
+        self.__dict__ = self  
+  cube = AttrDict(cube)
+  return cube
 
 def sliceCube(cube, type='il', 
               inline_loc=400, 
@@ -905,3 +994,68 @@ def sliceFluidFactor(near_cube, far_cube, type='il',
     diff = sliceFar - sliceNear
     FF = diff - coef[0] * sliceNear
     return FF    
+
+def rotate(origin, point, angle):
+  """
+  Rotate Seismic Survey
+
+  INPUT:
+
+  origin: Origin point or axis of rotation. Usually (min(x), min(y)) of CDP
+  point: x and y coordinates of CDP
+  angle: Angle of rotation
+
+  OUTPUT:
+
+  xrot, yrot: Rotated x and y coordinates of CDP
+  """
+  ox, oy = origin
+  px, py = point
+
+  xrot = ox + np.cos(np.deg2rad(angle)) * (px - ox) - np.sin(np.deg2rad(angle)) * (py - oy)
+  yrot = oy + np.sin(np.deg2rad(angle)) * (px - ox) + np.cos(np.deg2rad(angle)) * (py - oy)
+  return xrot, yrot
+
+def extract_geobody(cube, value, range_x, range_y, range_z, 
+                    figsize=(15,10), elev=90, azim=-90):
+  """
+  Extract geobody from an attribute cube
+
+  INPUT:
+
+  cube: Attribute cube object (3D array)
+  value: Threshold value of attribute
+  range_x: Min and max of x coordinate (Tuple)
+  range_y: Min and max of y coordinate (Tuple)
+  range_z: Min and max of z coordinate or TWT (Tuple)
+  elev, azim: Viewing elevation and azimuth
+
+  OUTPUT: 
+
+  Plot of extracted geobodies
+  """
+  cube[cube<value] = 0
+  cube[cube>value] = 1
+  cube = np.swapaxes(cube, 1, 0)
+  nx, ny, nz = cube.shape
+
+  x = np.linspace(range_x[0], range_x[1], nx+1)
+  y = np.linspace(range_y[0], range_y[1], ny+1)
+  z = np.linspace(range_z[0], range_z[1], nz+1)
+  x, y, z = np.meshgrid(y, x, z)
+
+  def make_ax(grid=False):
+    fig = plt.figure(figsize=figsize)
+    ax = fig.gca(projection='3d')
+    ax.set_xlabel("x")
+    ax.set_ylabel("y")
+    ax.set_zlabel("z")
+    ax.grid(grid)
+    ax.invert_zaxis()
+    # ax.view_init(60,45)
+    ax.view_init(elev, azim)
+    return ax
+
+  ax = make_ax(True)
+  ax.voxels(x, y, z, cube, facecolor='lime', shade=False, edgecolors='k', linewidth=0.2)
+  plt.show()
