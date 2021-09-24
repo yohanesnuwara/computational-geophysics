@@ -91,53 +91,6 @@ def openSegy3D(filename, iline=189, xline=193):
 
   return cube 
 
-# def openSegy3D(filename):
-#   """
-#   Open 3D seismic volume in SEGY or SGY format 
-#   """
-#   import segyio
-
-#   try:
-#     with segyio.open(filename) as f:
-
-#       data = segyio.tools.cube(f)
-
-#       inlines = f.ilines
-#       crosslines = f.xlines
-#       twt = f.samples
-#       sample_rate = segyio.tools.dt(f) / 1000
-
-#       print('Successfully read \n')
-#       print('Inline range from', inlines[0], 'to', inlines[-1])
-#       print('Crossline range from', crosslines[0], 'to', crosslines[-1])
-#       print('TWT from', twt[0], 'to', twt[-1])   
-#       print('Sample rate:', sample_rate, 'ms')  
-
-#       try:
-#         rot, cdpx, cdpy = segyio.tools.rotation(f, line="fast")
-#         print('Survey rotation: {:.2f} deg'.format(rot))      
-#       except:
-#         print("Survey rotation not recognized")  
-
-#       cube = dict({"data": data,
-#                    "inlines": inlines,
-#                    "crosslines": crosslines,
-#                    "twt": twt,
-#                    "sample_rate": sample_rate})
-      
-#       # See Stackoverflow: https://stackoverflow.com/questions/4984647/accessing-dict-keys-like-an-attribute
-#       class AttrDict(dict):
-#           def __init__(self, *args, **kwargs):
-#               super(AttrDict, self).__init__(*args, **kwargs)
-#               self.__dict__ = self  
-
-#       cube = AttrDict(cube)
-
-#   except:
-#     print("openSegy cannot read your data")  
-
-#   return cube 
-
 def parseHeader(filename):
   """
   Parse header of a SEGY seismic volume
@@ -183,11 +136,11 @@ def parseHeader(filename):
       return clean_header  
 
   
-  with segyio.open(filename, iline=5, xline=21) as f:  
+  with segyio.open(filename, ignore_geometry=True) as f:  
     # Load headers
     n_traces = f.tracecount    
     bin_headers = f.bin
-    text_headers = parse_text_header(f)
+    # text_headers = parse_text_header(f)
     trace_headers = parse_trace_headers(f, n_traces)
 
   return trace_headers 
