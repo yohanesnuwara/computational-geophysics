@@ -247,7 +247,7 @@ def sliceCube(cube, type='il',
 
       plt.colorbar()
       plt.xlabel('Crossline', size=15); plt.ylabel('TWT', size=15)
-      plt.show()
+#       plt.show()
 
   if type == 'xl':
 
@@ -267,7 +267,7 @@ def sliceCube(cube, type='il',
 
       plt.colorbar()
       plt.xlabel('Inline', size=15); plt.ylabel('TWT', size=15)
-      plt.show()
+#       plt.show()
   
   if type == 'ts':
 
@@ -291,7 +291,7 @@ def sliceCube(cube, type='il',
       plt.xlim(min(inline_array), max(inline_array))
       plt.ylim(min(xline_array), max(xline_array))
       plt.axis('equal')
-      plt.show()  
+#       plt.show()  
 
 def sliceViewer(cube, cube_name=" "):
   """
